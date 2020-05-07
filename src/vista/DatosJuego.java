@@ -32,38 +32,50 @@ public class DatosJuego {
 	 */
 	public void datosMatriz() throws Exception {
 		Scanner input = new Scanner(System.in);
+		
+		System.out.println();
+		System.out.println
+		("Debe dar los numeros del numero de casillas a lo ancho,"
+				+ " numero de casillas a lo ancho y numero de premios ");
+		
+		System.out.println("Estos datos deben ser mayor a 3 y menor a 21");
+		System.out.println();
+		System.out.println();
 		try {
-			System.out.println("Por favor deme el numero de casillas a lo largo");
+			System.out.println("Por favor deme el numero de casillas a lo largo:");
 			casillasLargo = input.nextInt();
 			
 			if (casillasLargo > 20) {
-				datosMatriz();
 				System.out.println("El numero de casillas a lo largo es muy grande, debe ser menor a 20");
+				datosMatriz();
 			}
 			if (casillasLargo <= 4 ) {
+				System.out.println("El numero de casillas a lo largo es muy pequenio, minimo debe ser 5");
 				datosMatriz();
 			}
 		} catch (InputMismatchException e) {
-			throw new Exception ("Debe agregar un numero entre 4 y 20");
+			System.out.println("Debe agregar un numero entero entre 4 y 20");
+			datosMatriz();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception ("Ocurrio un error a leer el numero de casillas a lo largo");
 		}
 		
 		try {
-			System.out.println("Por favor deme el numero de casillas a lo ancho");
+			System.out.println("Por favor deme el numero de casillas a lo ancho:");
 			casillasAncho = input.nextInt();
 			
 			if (casillasAncho > 20) {
-				datosMatriz();
 				System.out.println("El numero de casillas a lo ancho muy grande, debe ser menor a 20");
+				datosMatriz();
 			}
 			if (casillasAncho <= 4) {
-				datosMatriz();
 				System.out.println("El numero de casillas a lo ancho es muy pequenio, el minimo permitido es 5");
+				datosMatriz();
 			}
 		} catch (InputMismatchException e) {
-			throw new Exception ("Debe agregar un numero entre 4 y 20");
+			System.out.println("Debe agregar un numero entero entre 4 y 20");
+			datosMatriz();
 		} catch (Exception e) {
 			e.printStackTrace();
 			datosMatriz();
@@ -75,15 +87,16 @@ public class DatosJuego {
 			numeroPremios = input.nextInt();
 			
 			if (numeroPremios < 2) {
-				System.out.println("No puede ser menor a 2");
+				System.out.println("No puede ser menor a 2, debe estar entre 3 a 5");
 			}
 			
 			if (numeroPremios > 5) {
-				System.out.println("No puede ser mayor a 5");
+				System.out.println("No puede ser mayor a 5, debe estar entre 3 a 5");
 			}
 			
 		} catch (InputMismatchException e) {
-			throw new Exception ("Debe agregar un numero entre 4 y 20");
+			System.out.println("Debe agregar un numero entre 4 y 20");
+			datosMatriz();
 		} catch (Exception e) {
 			e.printStackTrace();
 			datosMatriz();

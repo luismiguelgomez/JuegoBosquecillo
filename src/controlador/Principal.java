@@ -21,6 +21,7 @@ public class Principal {
 
 	/**
 	 * <h1>Metodo arrancador del programa "MAIN"</h1>
+	 * lo primero a realizar es dirigirse a la clase "DatosJuego"
 	 * @param args Proveniente del main
 	 */
 	public static void main(String[] args) {
@@ -32,13 +33,13 @@ public class Principal {
 		 */
 		try {
 			claseDatosJuego.datosMatriz();
+			System.out.println("Juego terminado de manera exitosa");
 		} catch (Exception e) {
+			System.out.println("Juego terminado con un error");
 			e.printStackTrace();
 		} finally {
 			System.out.println("JUEGO TERMINADO");
 		}
-		
-		System.out.println("Juego Terminado de manera Exitosa");
 		
 	}
 
