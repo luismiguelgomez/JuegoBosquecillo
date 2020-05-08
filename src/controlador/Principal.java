@@ -25,8 +25,12 @@ public class Principal {
 	 * @param args Proveniente del main
 	 */
 	public static void main(String[] args) {
+
 		
 		DatosJuego claseDatosJuego = new DatosJuego();
+
+		 method stub
+
 
 		/*Try generado para atrapar el throw proveniente
 		 * de la clase DatosJuego
