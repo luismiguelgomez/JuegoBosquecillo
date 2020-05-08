@@ -19,10 +19,12 @@ public class DatosJuego {
 	int casillasLargo;
 	int casillasAncho;
 	int numeroPremios;
+
 	int numeroMuros;
 	int numeroBestias;
 	int BestiaLetal = 1;
 	int Tormentoso;
+
 	
 	/**
 	 * Metodo constructor de la clase DatosJuego
@@ -40,8 +42,12 @@ public class DatosJuego {
 		System.out.println();
 		System.out.println
 		("Debe dar los numeros del numero de casillas a lo ancho,"
+
 				+ " numero de casillas a lo largo , numero de premios "
 					+"y la cantidad de muros");
+=======
+				+ " numero de casillas a lo ancho y numero de premios ");
+
 		
 		System.out.println("Estos datos deben ser mayor a 3 y menor a 21");
 		System.out.println();
@@ -107,25 +113,26 @@ public class DatosJuego {
 			datosMatriz();
 			throw new Exception("Ocurrio un error al leer el numero de premios");
 		}
+
 	
 		/**
 		 * metodo para ingresar la cantidad de muros
-		 * @throws Exception 
+		 * @throws Exception generada por : InputMismatchException, Exception
 		 */
 			System.out.println();
-			System.out.println("digite el numero de muros");
+			System.out.println("Digite el numero de muros");
 			System.out.println();
 			System.out.println("Estos datos deben ser mayor a 0 y menor a 20");
 			System.out.println();
 			try {	
-				System.out.println("eliga la cantidad de muros");
+				System.out.println("Eliga la cantidad de muros:");
 				numeroMuros = input.nextInt();
 				
 			if (numeroMuros <= 0) {
 				System.out.println("Digite un numero mayor a 0");
 				}
 				
-			if (numeroMuros>=20) {
+			if (numeroMuros >= 20) {
 				System.out.println("El numero debe ser menor a 20"); 
 				}
 				
@@ -138,17 +145,17 @@ public class DatosJuego {
 				throw new Exception("Ocurrio un error al leer el numero de muros");
 		}
 			System.out.println();
-			System.out.println("digite el numero de bestias");
+			System.out.println("Digite el numero de bestias");
 			System.out.println();
 			System.out.println("Estos datos deben ser mayor a 0 y menor a 20");
 			System.out.println();
 			try {	
-				System.out.println("eliga la cantidad de bestias");
+				System.out.println("Eliga la cantidad de bestias");
 				numeroBestias = input.nextInt();
 				Tormentoso = numeroBestias -1;
 				numeroBestias = BestiaLetal + Tormentoso;
 			
-				System.out.println("bestia letal" +" "+ BestiaLetal +" "+ "tormentoso" +" "+ Tormentoso );
+				System.out.println("Bestia letal" +" "+ BestiaLetal +" "+ "tormentoso" +" "+ Tormentoso );
 			if (numeroBestias <= 0) {
 				System.out.println("Digite un numero mayor a 0");
 				}
@@ -165,6 +172,7 @@ public class DatosJuego {
 				datosMatriz();
 				throw new Exception("Ocurrio un error al leer el numero de muros");
 		}
+
 		
 		
 		Movimientos claseMovimientos = new Movimientos();
@@ -172,13 +180,14 @@ public class DatosJuego {
 		claseMovimientos.valorMatriz(casillasLargo, casillasAncho);
 		claseMovimientos.premios(numeroPremios);
 		claseMovimientos.personaje();
+
 		claseMovimientos.muros(numeroMuros);
 		claseMovimientos.bestias(numeroBestias);
 		claseMovimientos.buscarPersonaje();
 		}
-	
-		
-	
+
+	}
+
 	
 	/**
 	 * 

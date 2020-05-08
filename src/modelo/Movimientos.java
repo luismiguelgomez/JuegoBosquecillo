@@ -97,6 +97,7 @@ public class Movimientos {
 		}
 		
 	}
+
 	/**
 	 * posicion de los muros dentro de la matriz
 	 */
@@ -124,19 +125,20 @@ public class Movimientos {
 	 * @param numeroBestias
 	 */
 	public void bestias(int numeroBestias) {
-		for (int e=0; e<numeroBestias; e++) {
+		for (int e = 0; e<numeroBestias; e++) {
 			double valorEnteroUno = Math.floor(Math.random()*(0-casillasAncho+1)+casillasAncho);
 			System.out.println(valorEnteroUno);
 			double valorEnteroDos = Math.floor(Math.random()*(0-casillasAncho+1)+casillasAncho);
 			System.out.println(valorEnteroDos);
-			e =e+1;
+			e = e + 1;
+      
 			if (matriz[(int) valorEnteroUno][(int) valorEnteroDos] == null ) {
 				matriz[(int) valorEnteroUno][(int) valorEnteroDos] = "Bestias" + numeroBestias;
 				System.out.println("SI SE PUDO");
 			} else {
 				System.out.println("ENTRO AL ELSE");
 				System.out.println("La casilla esta llena");
-			e= e+1;
+			  e = e+1;
 			}
 		}
 	}
@@ -144,11 +146,12 @@ public class Movimientos {
 			 * la bestia buscara el personaje
 			 */
 	public void buscarPersonaje() {
-			for(int i =0; i<matriz.length; i++) {
-				for(int j =0; j<matriz.length;j--) {
+			for(int i = 0; i<matriz.length; i++) {
+				for(int j = 0; j<matriz.length;j--) {
 					System.out.println(matriz[i][j]) ;
 			
 			}
 		   }
 		}
+
 }
