@@ -10,7 +10,8 @@ import java.awt.event.ActionListener;
 public class VentanaNombre extends JFrame {
 
 	/**
-	 * @author Juan Crea la ventana con todas sus medidas, el JTextField y JLabel
+	 * @author Juan
+	 * Crea la ventana con todas sus medidas, el JTextField y JLabel
 	 */
 	private static final int FRAME_WIDTH = 500;
 	private static final int FRAME_HEIGHT = 100;
@@ -26,6 +27,11 @@ public class VentanaNombre extends JFrame {
 		setSize(FRAME_WIDTH, FRAME_HEIGHT);
 	}
 
+	/**
+	 * Crea el Label en el que pide el nombre de usuario Crea el JTextField para que
+	 * el usuario escriba el nombre
+	 */
+
 	private void createTextField() {
 		nombreLabel = new JLabel("Por favor digite su nombre: ");
 		// String nombreUsuario = nombreField.getText();
@@ -35,6 +41,10 @@ public class VentanaNombre extends JFrame {
 
 	}
 
+	/**
+	 * Crea el panel y le añade el Label y el Field del nombre
+	 */
+
 	private void createPanel() {
 		JPanel panel = new JPanel();
 		panel.add(nombreLabel);
@@ -43,13 +53,11 @@ public class VentanaNombre extends JFrame {
 	}
 
 	/**
-	 * 
 	 * Guarda el nombre del usuario en la variable nombreUsuario
-	 *
 	 */
 
 	public void actionPerformed(ActionEvent event) {
 		String nombreUsuario = nombreField.getText();
-		
+
 	}
 }

@@ -1,8 +1,15 @@
 package vista;
 
 import javax.swing.JFrame;
+
+/**
+ * Crea el JTextArea en el que muestra las reglas
+ */
 import javax.swing.JTextArea;
 
+/**
+ * Crea el JTextArea y muestra las reglas en el 
+ */
 public class MuestraReglas extends JFrame {
 
 	private JTextArea reglas;
