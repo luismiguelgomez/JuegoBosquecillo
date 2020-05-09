@@ -26,6 +26,10 @@ public class Principal {
 	 * <h1>Metodo arrancador del programa "MAIN"</h1> lo primero a realizar es
 	 * dirigirse a la clase "DatosJuego"
 	 * 
+	 * Agrega ventana que permite ingresar el nombre del jugador
+	 * Agrega ventana de como jugar?
+	 * 
+	 * 
 	 * @param args Proveniente del main
 	 */
 	public static void main(String[] args) {
