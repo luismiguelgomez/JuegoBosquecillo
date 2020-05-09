@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 /**
  * 
  * @author Juan 
- * Muestra la ventana inicial en la que pide el nombre del usuario
+ * Inicializa y da tamaño al JFrame de las reglas
  */
 public class VentanaReglas {
 

@@ -3,7 +3,7 @@
  */
 package controlador;
 
-import javax.swing.JFrame; 
+import javax.swing.JFrame;
 
 import vista.DatosJuego;
 import vista.VentanaNombre;
@@ -26,9 +26,8 @@ public class Principal {
 	 * <h1>Metodo arrancador del programa "MAIN"</h1> lo primero a realizar es
 	 * dirigirse a la clase "DatosJuego"
 	 * 
-	 * Agrega ventana que permite ingresar el nombre del jugador
-	 * Agrega ventana de como jugar?
-	 * 
+	 * Agrega ventana que permite ingresar el nombre del jugador Llama a
+	 * VentanaReglas la cual inicializa el JFrame para mostrar las reglas
 	 * 
 	 * @param args Proveniente del main
 	 */
@@ -46,14 +45,13 @@ public class Principal {
 			System.out.println("Juego terminado con un error");
 			e.printStackTrace();
 		}
-		
+
 		JFrame frame = new VentanaNombre();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		
+
 		VentanaReglas claseVentanaInicial = new VentanaReglas();
 		claseVentanaInicial.inicioVentanaReglas();
-		
 
 	}
 
