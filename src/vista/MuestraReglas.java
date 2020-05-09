@@ -7,6 +7,9 @@ import javax.swing.JFrame;
  */
 import javax.swing.JTextArea;
 
+/**
+ * Crea el JTextArea y muestra las reglas en el 
+ */
 public class MuestraReglas extends JFrame {
 
 	private JTextArea reglas;
