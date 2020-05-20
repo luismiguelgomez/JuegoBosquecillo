@@ -11,7 +11,7 @@ public class Area extends Actor{
     
     private void initArea() {
 
-        ImageIcon iicon = new ImageIcon("src/resources/area.png");
+        ImageIcon iicon = new ImageIcon("..\\src\\resources\\area.png");
         Image image = iicon.getImage();
         setImage(image);
     }

@@ -12,7 +12,7 @@ public class Mortal extends Actor{
 
     private void initPlayer() {
 
-        ImageIcon iicon = new ImageIcon("src/resources/Mortal.png");
+        ImageIcon iicon = new ImageIcon("..\\src\\resources\\Mortal.png");
         Image image = iicon.getImage();
         setImage(image);
     }
