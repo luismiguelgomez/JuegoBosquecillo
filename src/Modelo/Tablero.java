@@ -224,6 +224,7 @@ public class Tablero extends JPanel {
 			switch (key) {
 
 			case KeyEvent.VK_LEFT:
+				
 				if (checkWallCollision(bosquecillo, LEFT_COLLISION)) {
 					return;
 				}
@@ -231,22 +232,25 @@ public class Tablero extends JPanel {
 					return;
 				}
 
-				if (checkWallCollision(tormentoso, LEFT_COLLISION)) {
-				} else {
-					System.out.println("No hay nada");
-					tormentoso.move(-SPACE, 0);
-					filaTormentoso = filaTormentoso - 1;
-					System.out.println("la columna del tormentoso es: "+ columnaTormentoso);
-					System.out.println("la FIL del tormentoso es:" + filaTormentoso);
-				}
+//				if (checkWallCollision(tormentoso, LEFT_COLLISION)) {
+//				} else {
+//					System.out.println("No hay nada");
+//					tormentoso.move(-SPACE, 0);
+//					filaTormentoso = filaTormentoso - 1;
+//					System.out.println("la columna del tormentoso es: "+ columnaTormentoso);
+//					System.out.println("la FIL del tormentoso es:" + filaTormentoso);
+//				}
 
 				bosquecillo.move(-SPACE, 0);
 				filaBosquecillo = filaBosquecillo - 1;
 				System.out.println("la columna del bosquecillo es:"+ columnaBosquecillo);
 				System.out.println("laFIL DE BOSQUE:" + filaBosquecillo);
+				repaint();
+				movimientoEnemigo();
 				break;
 
 			case KeyEvent.VK_RIGHT:
+				
 				if (checkWallCollision(bosquecillo, RIGHT_COLLISION)) {
 					return;
 				}
@@ -255,33 +259,36 @@ public class Tablero extends JPanel {
 					return;
 				}
 
-				if (checkWallCollision(tormentoso, RIGHT_COLLISION)) {
-				} else {
-					tormentoso.move(SPACE, 0);
-					filaTormentoso = filaTormentoso + 1;
-					System.out.println("COL Tormentoso:" + columnaTormentoso);
-					System.out.println("FIL Tormentoso:" + filaTormentoso);
-				}
+//				if (checkWallCollision(tormentoso, RIGHT_COLLISION)) {
+//				} else {
+//					tormentoso.move(SPACE, 0);
+//					filaTormentoso = filaTormentoso + 1;
+//					System.out.println("COL Tormentoso:" + columnaTormentoso);
+//					System.out.println("FIL Tormentoso:" + filaTormentoso);
+//				}
 
 				bosquecillo.move(SPACE, 0);
 				filaBosquecillo = filaBosquecillo + 1;
 				System.out.println("columna bosquecillo:" + columnaBosquecillo);
 				System.out.println("FILA BOSQUE:" + filaBosquecillo);
+				repaint();
+				movimientoEnemigo();
 				break;
 
 			// Arriba
 			case KeyEvent.VK_UP:
+				
 				if (checkWallCollision(bosquecillo, TOP_COLLISION)) {
 					return;
 				}
 
-				if (checkWallCollision(tormentoso, TOP_COLLISION)) {
-				} else {
-					tormentoso.move(0, -SPACE);
-					columnaTormentoso = columnaTormentoso - 1;
-					System.out.println("la FILA del tormentoso es: "+ filaTormentoso);
-					System.out.println("La COLM del tormentoso es:" + columnaTormentoso);
-				}
+//				if (checkWallCollision(tormentoso, TOP_COLLISION)) {
+//				} else {
+//					tormentoso.move(0, -SPACE);
+//					columnaTormentoso = columnaTormentoso - 1;
+//					System.out.println("la FILA del tormentoso es: "+ filaTormentoso);
+//					System.out.println("La COLM del tormentoso es:" + columnaTormentoso);
+//				}
 
 				if (checkBagCollision(TOP_COLLISION)) {
 					return;
@@ -289,8 +296,8 @@ public class Tablero extends JPanel {
 
 				bosquecillo.move(0, -SPACE);
 				columnaBosquecillo = columnaBosquecillo - 1;
-				System.out.println("la FILA del bosquecillo es: "+ filaBosquecillo);
-				System.out.println("La COL del bosquecillo es:" + columnaBosquecillo);
+				repaint();
+				movimientoEnemigo();
 				break;
 
 			case KeyEvent.VK_DOWN:
@@ -312,7 +319,8 @@ public class Tablero extends JPanel {
                 System.out.println();
                 System.out.println("FILA TORMENTOSO:" + filaTormentoso);
                 System.out.println("COL TORMENTOSO: "+columnaTormentoso);
-                
+                repaint();
+                movimientoEnemigo();
                 break;
 
 			case KeyEvent.VK_R:
@@ -383,9 +391,10 @@ public class Tablero extends JPanel {
 			if (isCompleted) {
 				
 			}
-			
-			if (movimientos == 0) {
-				perderJuego();
+			if (filaBosquecillo == filaTormentoso && columnaBosquecillo == columnaTormentoso) {
+				System.out.println("Perdio");
+				movimientos = 0;
+			} else if (movimientos == 0) {
 			} else {
 				repaint();
 			}
@@ -393,232 +402,56 @@ public class Tablero extends JPanel {
 			
 		}
 	}
-
-	private boolean perderJuego() {
-		System.out.println("Estoy en el metodo perder juego");
-		Graphics g = new Graphics() {
-			
-			
-			@Override
-			public void translate(int x, int y) {
-				// TODO Auto-generated method stub
+	
+	private void movimientoEnemigo() {
+		if (columnaBosquecillo == columnaTormentoso) {
+			System.out.println("1111ENEMIGOS1111");
+			if (filaBosquecillo > filaTormentoso) {
+				tormentoso.move(SPACE, 0);
+				filaTormentoso = filaTormentoso + 1;
+//			} else if(filaBosquecillo < filaTormentoso){
+			} else {
+				tormentoso.move(-SPACE, 0);
+				filaTormentoso = filaTormentoso - 1;
+			}
+		} 
+		else {
+			System.out.println("2222ENEMIGOS222");
+			if (filaBosquecillo == filaTormentoso) {
 				
-			}
-			
-			@Override
-			public void setXORMode(Color c1) {
-				// TODO Auto-generated method stub
+				if (columnaBosquecillo < columnaTormentoso) {
+					System.out.println("1,2");
+					tormentoso.move(0, -SPACE);
+					columnaTormentoso = columnaTormentoso - 1;
+				}
 				
-			}
-			
-			@Override
-			public void setPaintMode() {
-				// TODO Auto-generated method stub
+				if (columnaBosquecillo > columnaTormentoso) {
+					System.out.println("21");
+					tormentoso.move(0, SPACE);
+					columnaTormentoso = columnaTormentoso + 1;
+				} 
 				
+			} else {
+				/*Codigo a mostrar al profesor*/
+//				if (filaBosquecillo > filaTormentoso) {
+//					tormentoso.move(SPACE, 0);
+//					filaTormentoso = filaTormentoso + 1;
+//				} else {
+//					tormentoso.move(-SPACE, 0);
+//					filaTormentoso = filaTormentoso - 1;
+//				}
 			}
-			
-			@Override
-			public void setFont(Font font) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void setColor(Color c) {
-				setColor(new Color(255, 255, 255));
-				
-			}
-			
-			@Override
-			public void setClip(int x, int y, int width, int height) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void setClip(Shape clip) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public FontMetrics getFontMetrics(Font f) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public Font getFont() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public Color getColor() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public Rectangle getClipBounds() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public Shape getClip() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public void fillRoundRect(int x, int y, int width, int height, int arcWidth, int arcHeight) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void fillRect(int x, int y, int width, int height) {
-			}
-			
-			@Override
-			public void fillPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void fillOval(int x, int y, int width, int height) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void fillArc(int x, int y, int width, int height, int startAngle, int arcAngle) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void drawString(AttributedCharacterIterator iterator, int x, int y) {
-				drawString("Perdio el juego", 25, 20);
-				
-			}
-			
-			@Override
-			public void drawString(String str, int x, int y) {
-				drawString("Perdio el juego", 25, 20);
-				
-			}
-			
-			@Override
-			public void drawRoundRect(int x, int y, int width, int height, int arcWidth, int arcHeight) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void drawPolyline(int[] xPoints, int[] yPoints, int nPoints) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void drawPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void drawLine(int x1, int y1, int x2, int y2) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2,
-					Color bgcolor, ImageObserver observer) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-			@Override
-			public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2,
-					ImageObserver observer) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-			@Override
-			public boolean drawImage(Image img, int x, int y, int width, int height, Color bgcolor, ImageObserver observer) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-			@Override
-			public boolean drawImage(Image img, int x, int y, int width, int height, ImageObserver observer) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-			@Override
-			public boolean drawImage(Image img, int x, int y, Color bgcolor, ImageObserver observer) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-			@Override
-			public boolean drawImage(Image img, int x, int y, ImageObserver observer) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-			@Override
-			public void drawArc(int x, int y, int width, int height, int startAngle, int arcAngle) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void dispose() {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public Graphics create() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public void copyArea(int x, int y, int width, int height, int dx, int dy) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void clipRect(int x, int y, int width, int height) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void clearRect(int x, int y, int width, int height) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void drawOval(int x, int y, int width, int height) {
-				// TODO Auto-generated method stub
-				
-			}
-		};
-		
-
-		return false;
+		}
+		System.out.println();
+		System.out.println();
+		System.out.println("la FILA del bosquecillo es: "+ filaBosquecillo);
+		System.out.println("La COL del bosquecillo es:" + columnaBosquecillo);
+		System.out.println();
+		System.out.println("FILA TORMENTO :" + filaTormentoso);
+		System.out.println("COL TORMTEN:" + columnaTormentoso);
+		repaint();
 	}
+
 	
 	private boolean checkWallCollision(Actor actor, int type) {
 
@@ -686,6 +519,8 @@ public class Tablero extends JPanel {
 		return false;
 	}
 
+	
+	
 	private boolean checkBagCollision(int type) {
 
 		switch (type) {
