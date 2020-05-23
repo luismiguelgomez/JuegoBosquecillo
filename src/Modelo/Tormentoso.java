@@ -12,7 +12,7 @@ public class Tormentoso extends Actor{
 
     private void initPlayer() {
 
-        ImageIcon iicon = new ImageIcon("src/resources/Tormentoso.png");
+        ImageIcon iicon = new ImageIcon("..\\src\\resources\\Tormentoso.png");
         Image image = iicon.getImage();
         setImage(image);
     }
