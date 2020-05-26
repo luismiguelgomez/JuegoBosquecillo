@@ -1,9 +1,10 @@
 package Modelo;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
-public class Player extends Actor{
-	public Player(int x, int y) {
+public class Carro extends Actor{
+	public Carro(int x, int y) {
         super(x, y);
 
         initPlayer();
@@ -11,7 +12,7 @@ public class Player extends Actor{
 
     private void initPlayer() {
 
-        ImageIcon iicon = new ImageIcon("..\\src\\resources\\Bosquecillo1.png");
+        ImageIcon iicon = new ImageIcon("..\\src\\resources\\bosquecillo.png");
         Image image = iicon.getImage();
         setImage(image);
     }
