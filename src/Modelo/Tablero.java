@@ -18,7 +18,8 @@ import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 
 /**
  * Inicializa el tablero y crea el ambiente de juego
- * 
+ * 	
+ * @author luisGomez
  * @author valkirian
  *
  */
