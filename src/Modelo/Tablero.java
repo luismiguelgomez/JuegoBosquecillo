@@ -49,15 +49,15 @@ public class Tablero extends JPanel {
 	private String level 
            = "####################\n"
             + "#                 #\n"
-            + "## @C            #\n"
+            + "##  @C            #\n"
             + "###     ##        #\n"
             + "#              ####\n"
-            + "#  $            % #\n"
+            + "#  $             #\n"
             + "#     ##       #######\n"
             + "#                   1#\n"
             + "#              #  ####\n"
             + "#                 #\n"
-	        + "##  ##            #\n"
+	        + "##% ##            #\n"
             + "##               ##\n"
 	        + "#####           ###\n"
             + "#    ##           #\n"
@@ -79,18 +79,20 @@ public class Tablero extends JPanel {
 	private String level3 
         	= "  ########\n" 
 			+ "  #       #\n" 
-			+ "  #  @    #\n" 
-			+ "  #  C    ##\n" 
+			+ "  #  @C   #\n" 
+			+ "  #       ##\n" 
 			+ "  #   $ $ #\n"
 			+ "###       ##########\n" 
 			+ "##     ##     ##  ##\n" 
-			+ "## $  $ %         41#\n" 
-			+ "##  #    #     #  32#\n"
-			+ "##                  #\n"
-			+ " ####      %#########\n" 
+			+ "## $  $          41#\n" 
+			+ "##  #    #     # 32#\n"
+			+ "##       %          #\n"
+			+ " ####      #########\n" 
 			+ "    ########\n";
 	
-
+/**
+ * Este metodo es utilizado para indicar los elemetos del juego 
+ */
 	public Tablero() {
 		filaBosquecillo = 6;
 		columnaBosquecillo = 3;
@@ -115,7 +117,9 @@ public class Tablero extends JPanel {
 	public int getBoardHeight() {
 		return this.h;
 	}
-
+/**
+ * esta clase es usada para buscar el nivel y se inicializa los componentes del tablero 
+ */
 	private void initWorld() {
 
 		walls = new ArrayList<>();
@@ -129,9 +133,9 @@ public class Tablero extends JPanel {
 		Baggage b;
 		Area a;
 
-		for (int i = 0; i < level2.length(); i++) {
+		for (int i = 0 ; i < level3.length(); i++) {
 
-			item = level2.charAt(i);
+			item = level3.charAt(i);
 
 			switch (item) {
 
@@ -193,7 +197,10 @@ public class Tablero extends JPanel {
 			h = y;
 		}
 	}
-
+/**
+ * Este metodo pinta una pnatalla negra donde traera todos los elementos del juego 
+ * @param g se utiliza para graficar imagenes 
+ */
 	private void buildWorld(Graphics g) {
 
 		g.setColor(new Color(0, 0, 0));
@@ -240,7 +247,7 @@ public class Tablero extends JPanel {
 	 * @author luisgomez por medio de la entrada de teclado, hacemos los movimientos
 	 *         del bosquecillo cada movimiento del bosquecillo revisa la colision.
 	 *
-	 *         El mountruo se mueve de forma que se mueve cuando el bosquecillo se
+	 *         El mounstruo se mueve de forma que se mueve cuando el bosquecillo se
 	 *         mueve.
 	 *
 	 * Cuando se llega al punto de llegada hace una transicion
@@ -250,6 +257,9 @@ public class Tablero extends JPanel {
 		int movimientos = 231;
 
 		@Override
+		/**
+		 * Este metodo es utilizado para traer todos los enventos del teclado 
+		 */
 		
 		public void keyPressed(KeyEvent e) {
 
@@ -497,6 +507,9 @@ public class Tablero extends JPanel {
 
 		}
 	}
+	/**
+	 * Este metodo revisa el movimiento del tormentoso con las columnas y las filas para comenzar a seguirlo
+	 */
 
 	private void movimientoEnemigo() {
 		if (columnaBosquecillo == columnaTormentoso) {
@@ -546,6 +559,12 @@ public class Tablero extends JPanel {
 		repaint();
 	}
 
+	/**
+	 * Este metodo permite que que el jugador no se salga de los parametros del juego
+	 * @param actor toma el carrito 
+	 * @param type revisa colisiones 
+	 * @return boolean cuando hay colision o no
+	 */
 	private boolean checkWallCollision(Actor actor, int type) {
 
 		switch (type) {
@@ -611,6 +630,10 @@ public class Tablero extends JPanel {
 
 		return false;
 	}
+/** 
+ * Este metodo es utilizado para verificar el movimiento del carro cuanod bosquecillo lo empuja
+ * @return iscompleted si cumple con la condicion de la posicion de bosquecillo
+ */
 
 	private boolean movimientoCarroIzquierda() {
 		if (filaBosquecillo == filaCarro && columnaBosquecillo == columnaCarro) {
@@ -621,7 +644,10 @@ public class Tablero extends JPanel {
 
 		return isCompleted;
 	}
-
+/**
+ * Este metodo es para verificar el movimiento del carro al lado derecho de bosquecillo
+ * @return iscompleted  si cumple con la condicion de la posicion de bosquecillo
+ */
 	private boolean movimientoCarroDerecha() {
 		if (filaBosquecillo == filaCarro && columnaBosquecillo == columnaCarro) {
 			System.out.println("EL bosquecillo y el carro estan en la misma parte");
@@ -631,6 +657,10 @@ public class Tablero extends JPanel {
 
 		return isCompleted;
 	}
+	/**
+	 * Este metodo es para verificar el movimiento del carro hacia arriba de bosquecillo
+	 * @return iscompleted  si cumple con la condicion de la posicion de bosquecillo
+	 */
 
 	private boolean movimientoCarroArriba() {
 		if (filaBosquecillo == filaCarro && columnaBosquecillo == columnaCarro) {
@@ -642,6 +672,10 @@ public class Tablero extends JPanel {
 		return isCompleted;
 	}
 
+	/**
+	 * Este metodo es para verificar el movimiento del carro hacia abajo de bosquecillo
+	 * @return iscompleted  si cumple con la condicion de la posicion de bosquecillo
+	 */
 	private boolean movimientoCarroAbajo() {
 		System.out.println("Entre a carro abajo");
 		if (filaBosquecillo == filaCarro && columnaBosquecillo == columnaCarro) {
@@ -652,7 +686,11 @@ public class Tablero extends JPanel {
 
 		return true;
 	}
-
+/**
+ * Este metodo es utilizado ´para revisar si existe colision de el carro con los muros
+ * @param type
+ * @return
+ */
 	private boolean checkBagCollision(int type) {
 
 		switch (type) {
@@ -809,7 +847,9 @@ public class Tablero extends JPanel {
 
 		return false;
 	}
-
+/**
+ * Este metodo es utilizado para revisar si el jugador llevo las monedas a las posiciones indicadas
+ */
 	public void isCompleted() {
 
 		int nOfBags = baggs.size();
@@ -836,7 +876,9 @@ public class Tablero extends JPanel {
 			repaint();
 		}
 	}
-
+/**
+ * Este metodo nos ayuda a reiniciar el nivel y volver a ubicar los elementos del juego en su posición inicial
+ */
 	public void restartLevel() {
 
 		areas.clear();

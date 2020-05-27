@@ -8,7 +8,9 @@ public class Area extends Actor{
         
         initArea();
     }
-    
+    /**
+     * Este metodo iniciara el area del juego y cargara las imagenes 
+     */
     private void initArea() {
 
         ImageIcon iicon = new ImageIcon("..\\src\\resources\\area.png");
