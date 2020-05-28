@@ -12,7 +12,7 @@ public class Carro extends Actor{
 
     private void initPlayer() {
 
-        ImageIcon iicon = new ImageIcon("..\\src\\resources\\carro.png");
+        ImageIcon iicon = new ImageIcon("..\\src\\resources\\bosquecillo.png");
         Image image = iicon.getImage();
         setImage(image);
     }
