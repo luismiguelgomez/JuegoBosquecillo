@@ -1,26 +1,19 @@
 package Modelo;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.Shape;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.image.ImageObserver;
-import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
+
 
 /**
  * Inicializa el tablero y crea el ambiente de juego
  * 
  * @author valkirian
- *
+ * @autor Juan	
  */
 public class Tablero extends JPanel {
 	private final int OFFSET = 30;
@@ -33,7 +26,7 @@ public class Tablero extends JPanel {
 	private ArrayList<Wall> walls;
 	private ArrayList<Baggage> baggs;
 	private ArrayList<Area> areas;
-
+	
 	private final int MAXIMO_COLUMNAS_NIVEL_2 = 21 ;
 	private final int MAXIMO_FILAS_NIVEL_2 = 11;
 	char item;
@@ -83,7 +76,7 @@ public class Tablero extends JPanel {
 		initBoard();
 	}
 
-	private void initBoard() {
+	public void initBoard() {
 
 		addKeyListener(new TAdapter());
 		setFocusable(true);
@@ -98,7 +91,7 @@ public class Tablero extends JPanel {
 		return this.h;
 	}
 
-	private void initWorld() {
+	public void initWorld() {
 
 		walls = new ArrayList<>();
 		baggs = new ArrayList<>();
@@ -167,6 +160,12 @@ public class Tablero extends JPanel {
 		}
 	}
 
+	public String nombre;
+	public void metodorueb(String pNombre) {
+		System.out.println("Me llego este nombre:" + pNombre);
+		nombre = pNombre;
+	}
+	
 	private void buildWorld(Graphics g) {
 
 		g.setColor(new Color(0, 0, 0));
@@ -183,6 +182,7 @@ public class Tablero extends JPanel {
 		for (int i = 0; i < world.size(); i++) {
 
 			Actor item = world.get(i);
+//			GuardarNombreListener nombre;
 
 			if (item instanceof Player || item instanceof Baggage) {
 
@@ -193,9 +193,10 @@ public class Tablero extends JPanel {
 			}
 
 			if (isCompleted) {
-
+				
 				g.setColor(new Color(255, 255, 255));
-				g.drawString("Completed", 25, 20);
+				g.drawString(" " +nombre+ " ha ganado", 25, 20);
+				g.drawString(" " +" ha ganado", 25, 20);
 			}
 
 		}
