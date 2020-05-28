@@ -298,6 +298,7 @@ public class Tablero extends JPanel {
 				System.out.println("A GANADO UN PREMIO:d");
 				repaint();
 			}
+
 			if (columnaCarro == 9 && filaCarro == 20) {
 				System.out.println("Creo que entro el segundo");
 				premiosGanados = 2;
@@ -308,6 +309,7 @@ public class Tablero extends JPanel {
 				System.out.println("A GANADO UN PREMIO:d");
 				repaint();
 			}
+
 			if (columnaCarro == 8 && filaCarro == 20) {
 				System.out.println("Creo que entro el segundo");
 				premiosGanados = 2;
