@@ -1,20 +1,12 @@
 package Modelo;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.Shape;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.image.ImageObserver;
-import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
-import javax.swing.JPanel;
 
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
+import javax.swing.JPanel;
 
 /**
  * Inicializa el tablero y crea el ambiente de juego
@@ -54,30 +46,50 @@ public class Tablero extends JPanel {
 
 	private boolean isCompleted = false;
 
-	private String level = "    ######\n" 
-			+ "    ##   #\n" 
-			+ "    ##$  #\n" 
-			+ "  ####  $##\n" 
-			+ "  ##  $ $ #\n"
-			+ "#### # ## #   ######\n" 
-			+ "##   # ## #####  ..#\n" 
-			+ "## $  $ %  m     ..#\n" 
-			+ "###### ### #@##  ..#\n"
-			+ "    ##     #########\n" 
-			+ "    ########\n";
-
+	private String level 
+           = "####################\n"
+            + "#                 #\n"
+            + "## @C            #\n"
+            + "###     ##        #\n"
+            + "#              ####\n"
+            + "#  $            % #\n"
+            + "#     ##       #######\n"
+            + "#                   1#\n"
+            + "#              #  ####\n"
+            + "#                 #\n"
+	        + "##  ##            #\n"
+            + "##               ##\n"
+	        + "#####           ###\n"
+            + "#    ##           #\n"
+            + "###################\n";
+	        
 	private String level2 
 			= "##################\n" 
 			+ "#                #\n" 
-			+ "##   @C    $     #\n"
+			+ "##   @C          #\n"
 			+ "###   ##         #\n" 
 			+ "#     ##         #\n" 
 			+ "#    $           #\n" 
-			+ "#       ##      #####\n"
-			+ "#  $              41#\n" 
-			+ "#  %       $      32#\n" 
-			+ "#       ##    #######\n" 
+			+ "#       ##      ######\n"
+			+ "#  $                1#\n" 
+			+ "#  %       $       32#\n" 
+			+ "#       ##    ########\n" 
 			+ "##############\n";
+	
+	private String level3 
+        	= "  ########\n" 
+			+ "  #       #\n" 
+			+ "  #  @    #\n" 
+			+ "  #  C    ##\n" 
+			+ "  #   $ $ #\n"
+			+ "###       ##########\n" 
+			+ "##     ##     ##  ##\n" 
+			+ "## $  $ %         41#\n" 
+			+ "##  #    #     #  32#\n"
+			+ "##                  #\n"
+			+ " ####      %#########\n" 
+			+ "    ########\n";
+	
 
 	public Tablero() {
 		filaBosquecillo = 6;
@@ -163,6 +175,7 @@ public class Tablero extends JPanel {
 				tormentoso = new Tormentoso(x, y);
 				x += SPACE;
 				break;
+		
 			case 'C':
 				carro = new Carro(x, y);
 				x += SPACE;
@@ -230,18 +243,34 @@ public class Tablero extends JPanel {
 	 *         El mountruo se mueve de forma que se mueve cuando el bosquecillo se
 	 *         mueve.
 	 *
+	 * Cuando se llega al punto de llegada hace una transicion
 	 */
 	private class TAdapter extends KeyAdapter {
 
 		int movimientos = 231;
-
+		int diferenciaFila = 0;
+		int diferenciaColumna = 0;
 		@Override
+		
 		public void keyPressed(KeyEvent e) {
 
 			if (isCompleted) {
 				return;
 			}
 
+			System.out.println("***************");
+			diferenciaFila = filaCarro - filaBosquecillo;
+			diferenciaColumna= columnaCarro - columnaBosquecillo;
+			
+			System.out.println("diferenciaFILA.-" +  diferenciaFila);
+			System.out.println("COLUMNAdiferencia" + diferenciaColumna);
+			
+//			
+//			if (diferenciaFila > 3) {
+//				System.out.println("OJO VA MUY LEJOS DEL CARRO");
+//				return;
+//			}
+			
 			
 			/*Llega a fila 2 sin tener nada*/
 			if (columnaCarro == 9 && filaCarro == 19 && movimientos < 1) {
@@ -252,6 +281,36 @@ public class Tablero extends JPanel {
 			if (columnaCarro == 8 && filaCarro == 20) {
 				System.out.println("Creo que entro el primero");
 				premiosGanados = 1;
+				filaCarro = filaCarro - 6;
+				for (int i = 0; i <= 5; i++) {
+					carro.move(-SPACE, 0);
+				}
+				System.out.println("A GANADO UN PREMIO:d");
+				repaint();
+			}
+			if (columnaCarro == 9 && filaCarro == 20) {
+				System.out.println("Creo que entro el segundo");
+				premiosGanados = 2;
+				filaCarro = filaCarro - 6;
+				for (int i = 0; i <= 5; i++) {
+					carro.move(-SPACE, 0);
+				}
+				System.out.println("A GANADO UN PREMIO:d");
+				repaint();
+			}
+			if (columnaCarro == 9 && filaCarro == 20) {
+				System.out.println("Creo que entro el segundo");
+				premiosGanados = 2;
+				filaCarro = filaCarro - 6;
+				for (int i = 0; i <= 5; i++) {
+					carro.move(-SPACE, 0);
+				}
+				System.out.println("A GANADO UN PREMIO:d");
+				repaint();
+			}
+			if (columnaCarro == 8 && filaCarro == 20) {
+				System.out.println("Creo que entro el segundo");
+				premiosGanados = 2;
 				filaCarro = filaCarro - 6;
 				for (int i = 0; i <= 5; i++) {
 					carro.move(-SPACE, 0);
@@ -275,12 +334,18 @@ public class Tablero extends JPanel {
 				}
 			}
 			
+			
 			if (movimientos > 0) {
 				int key = e.getKeyCode();
 				switch (key) {
 	
 				case KeyEvent.VK_LEFT:
 	
+
+					if (diferenciaFila > 3) {
+						System.out.println("OJO VA MUY LEJOS DEL CARRO");
+						return;
+					}
 					if (checkWallCollision(bosquecillo, LEFT_COLLISION)) {
 						return;
 					}
@@ -306,6 +371,10 @@ public class Tablero extends JPanel {
 	
 				case KeyEvent.VK_RIGHT:
 	
+					if (diferenciaFila < -3) {
+						System.out.println("OJO VA MUY LEJOS DEL CARRO");
+						return;
+					}
 					if (checkWallCollision(bosquecillo, RIGHT_COLLISION)) {
 						return;
 					}
@@ -332,6 +401,11 @@ public class Tablero extends JPanel {
 				// Arriba
 				case KeyEvent.VK_UP:
 	
+					if (diferenciaColumna > 3) {
+						System.out.println("OJO VA MUY LEJOS DEL CARRO");
+						return;
+					}
+					
 					if (checkWallCollision(bosquecillo, TOP_COLLISION)) {
 						return;
 					}
@@ -357,6 +431,10 @@ public class Tablero extends JPanel {
 	
 				case KeyEvent.VK_DOWN:
 	
+					if (diferenciaColumna < -3) {
+						System.out.println("OJO VA MUY LEJOS DEL CARRO");
+						return;
+					}
 					if (checkWallCollision(bosquecillo, BOTTOM_COLLISION)) {
 						return;
 					}
