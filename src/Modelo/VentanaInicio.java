@@ -153,6 +153,3 @@ public class VentanaInicio extends JFrame {
 	}
 	};*/
 }
-	
-	
-
