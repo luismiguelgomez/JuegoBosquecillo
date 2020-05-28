@@ -13,7 +13,7 @@ import javax.swing.JPanel;
  * Inicializa el tablero y crea el ambiente de juego
  * 
  * @author valkirian
- * @autor Juan	
+ * @author Juan	
  */
 public class Tablero extends JPanel {
 	private final int OFFSET = 30;
