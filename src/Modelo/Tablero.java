@@ -248,7 +248,8 @@ public class Tablero extends JPanel {
 	private class TAdapter extends KeyAdapter {
 
 		int movimientos = 231;
-
+		int diferenciaFila = 0;
+		int diferenciaColumna = 0;
 		@Override
 		
 		public void keyPressed(KeyEvent e) {
@@ -257,6 +258,19 @@ public class Tablero extends JPanel {
 				return;
 			}
 
+			System.out.println("***************");
+			diferenciaFila = filaCarro - filaBosquecillo;
+			diferenciaColumna= columnaCarro - columnaBosquecillo;
+			
+			System.out.println("diferenciaFILA.-" +  diferenciaFila);
+			System.out.println("COLUMNAdiferencia" + diferenciaColumna);
+			
+//			
+//			if (diferenciaFila > 3) {
+//				System.out.println("OJO VA MUY LEJOS DEL CARRO");
+//				return;
+//			}
+			
 			
 			/*Llega a fila 2 sin tener nada*/
 			if (columnaCarro == 9 && filaCarro == 19 && movimientos < 1) {
@@ -284,7 +298,8 @@ public class Tablero extends JPanel {
 				System.out.println("A GANADO UN PREMIO:d");
 				repaint();
 			}
-			if (columnaCarro == 9 && filaCarro == 19) {
+
+			if (columnaCarro == 9 && filaCarro == 20) {
 				System.out.println("Creo que entro el segundo");
 				premiosGanados = 2;
 				filaCarro = filaCarro - 6;
@@ -294,7 +309,8 @@ public class Tablero extends JPanel {
 				System.out.println("A GANADO UN PREMIO:d");
 				repaint();
 			}
-			if (columnaCarro == 8 && filaCarro == 19) {
+
+			if (columnaCarro == 8 && filaCarro == 20) {
 				System.out.println("Creo que entro el segundo");
 				premiosGanados = 2;
 				filaCarro = filaCarro - 6;
@@ -327,6 +343,11 @@ public class Tablero extends JPanel {
 	
 				case KeyEvent.VK_LEFT:
 	
+
+					if (diferenciaFila > 3) {
+						System.out.println("OJO VA MUY LEJOS DEL CARRO");
+						return;
+					}
 					if (checkWallCollision(bosquecillo, LEFT_COLLISION)) {
 						return;
 					}
@@ -352,6 +373,10 @@ public class Tablero extends JPanel {
 	
 				case KeyEvent.VK_RIGHT:
 	
+					if (diferenciaFila < -3) {
+						System.out.println("OJO VA MUY LEJOS DEL CARRO");
+						return;
+					}
 					if (checkWallCollision(bosquecillo, RIGHT_COLLISION)) {
 						return;
 					}
@@ -378,6 +403,11 @@ public class Tablero extends JPanel {
 				// Arriba
 				case KeyEvent.VK_UP:
 	
+					if (diferenciaColumna > 3) {
+						System.out.println("OJO VA MUY LEJOS DEL CARRO");
+						return;
+					}
+					
 					if (checkWallCollision(bosquecillo, TOP_COLLISION)) {
 						return;
 					}
@@ -403,6 +433,10 @@ public class Tablero extends JPanel {
 	
 				case KeyEvent.VK_DOWN:
 	
+					if (diferenciaColumna < -3) {
+						System.out.println("OJO VA MUY LEJOS DEL CARRO");
+						return;
+					}
 					if (checkWallCollision(bosquecillo, BOTTOM_COLLISION)) {
 						return;
 					}
