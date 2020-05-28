@@ -77,7 +77,7 @@ public class Tablero extends JPanel {
 			+ "##############\n";
 	
 	private String level3 
-        	= "  ########\n" 
+        		= "  ########\n" 
 			+ "  #       #\n" 
 			+ "  #  @    #\n" 
 			+ "  #  C    ##\n" 
