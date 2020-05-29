@@ -82,6 +82,7 @@ public class Tablero extends JPanel {
 	/**
 	 * Sirve para conocer los premios ganados
 	 */
+	int premiosGanados;
 
 	private Player bosquecillo;
 	private Carro carro;
@@ -733,7 +734,7 @@ public class Tablero extends JPanel {
 		return true;
 	}
 /**
- * Este metodo es utilizado ´para revisar si existe colision de el carro con los muros
+ * Este metodo es utilizado ï¿½para revisar si existe colision de el carro con los muros
  * @param type
  * @return
  */
@@ -923,7 +924,7 @@ public class Tablero extends JPanel {
 		}
 	}
 /**
- * Este metodo nos ayuda a reiniciar el nivel y volver a ubicar los elementos del juego en su posición inicial
+ * Este metodo nos ayuda a reiniciar el nivel y volver a ubicar los elementos del juego en su posiciï¿½n inicial
  */
 	public void restartLevel() {
 
