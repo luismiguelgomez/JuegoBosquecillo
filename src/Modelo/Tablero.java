@@ -6,11 +6,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-<<<<<<< HEAD
-
-=======
 import javax.swing.JPanel;
->>>>>>> origin/pruebas
+
 
 /**
  * Inicializa el tablero y crea el ambiente de juego
@@ -29,13 +26,9 @@ public class Tablero extends JPanel {
 	private ArrayList<Wall> walls;
 	private ArrayList<Baggage> baggs;
 	private ArrayList<Area> areas;
-<<<<<<< HEAD
+
 	
 	private final int MAXIMO_COLUMNAS_NIVEL_2 = 21 ;
-=======
-
-	private final int MAXIMO_COLUMNAS_NIVEL_2 = 21;
->>>>>>> origin/pruebas
 	private final int MAXIMO_FILAS_NIVEL_2 = 11;
 	char item;
 	int filaBosquecillo;
@@ -237,10 +230,6 @@ public class Tablero extends JPanel {
 			}
 
 			if (isCompleted) {
-<<<<<<< HEAD
-				
-=======
->>>>>>> origin/pruebas
 				g.setColor(new Color(255, 255, 255));
 				g.drawString(" " +nombre+ " ha ganado", 25, 20);
 				g.drawString(" " +" ha ganado", 25, 20);
