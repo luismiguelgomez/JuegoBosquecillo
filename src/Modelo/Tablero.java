@@ -8,11 +8,15 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+
+import javax.swing.JPanel;
+
+
 /**
  * Inicializa el tablero y crea el ambiente de juego
  * 
  * @author valkirian
- *
+ * @author Juan	
  */
 public class Tablero extends JPanel {
 	private final int OFFSET = 30;
@@ -26,7 +30,9 @@ public class Tablero extends JPanel {
 	private ArrayList<Baggage> baggs;
 	private ArrayList<Area> areas;
 
-	private final int MAXIMO_COLUMNAS_NIVEL_2 = 21;
+
+
+	private final int MAXIMO_COLUMNAS_NIVEL_2 = 21;	
 	private final int MAXIMO_FILAS_NIVEL_2 = 11;
 	char item;
 	int filaBosquecillo;
@@ -100,12 +106,12 @@ public class Tablero extends JPanel {
 		columnaCarro = 3;
 		initBoard();
 	}
-
-	private void initBoard() {
-
+	
+	public void initBoard() {
+		
 		addKeyListener(new TAdapter());
 		setFocusable(true);
-		initWorld();
+		//aca estaba el initWorld();
 	}
 
 	public int getBoardWidth() {
@@ -115,8 +121,29 @@ public class Tablero extends JPanel {
 	public int getBoardHeight() {
 		return this.h;
 	}
+	
+	public int seleccionador;
+	String eligeNivel;
+	
+	public void dificultad(int pSeleccionador) {
 
-	private void initWorld() {
+		seleccionador = pSeleccionador;
+
+		if (seleccionador == 1) {
+			eligeNivel = level;
+			initWorld(eligeNivel);
+		}
+		if (seleccionador == 2) {
+			eligeNivel = level2;
+			initWorld(eligeNivel);
+		}
+		if (seleccionador == 3) {
+			eligeNivel = level3;
+			initWorld(eligeNivel);
+		}
+	}
+	
+	public void initWorld(String eligeNivel) {
 
 		walls = new ArrayList<>();
 		baggs = new ArrayList<>();
@@ -124,14 +151,14 @@ public class Tablero extends JPanel {
 
 		int x = OFFSET;
 		int y = OFFSET;
-
+		
 		Wall wall;
 		Baggage b;
 		Area a;
 
-		for (int i = 0; i < level2.length(); i++) {
+		for (int i = 0; i < eligeNivel.length(); i++) {
 
-			item = level2.charAt(i);
+			item = eligeNivel.charAt(i);
 
 			switch (item) {
 
@@ -192,8 +219,17 @@ public class Tablero extends JPanel {
 
 			h = y;
 		}
+	
 	}
+	
 
+	
+	public String nombre;
+	public void metodoPrueba(String pNombre) {
+		nombre = pNombre;
+		System.out.println("Recibi el nombre de "+nombre);
+	}
+	
 	private void buildWorld(Graphics g) {
 
 		g.setColor(new Color(0, 0, 0));
@@ -222,7 +258,8 @@ public class Tablero extends JPanel {
 
 			if (isCompleted) {
 				g.setColor(new Color(255, 255, 255));
-				g.drawString("Completed", 25, 20);
+				g.drawString(" " +nombre+ " ha ganado", 25, 20);
+				g.drawString(" " +" ha ganado", 25, 20);
 			}
 
 		}
@@ -877,10 +914,10 @@ public class Tablero extends JPanel {
 		baggs.clear();
 		walls.clear();
 
-		initWorld();
+		initWorld(eligeNivel);
 
 		if (isCompleted) {
 			isCompleted = false;
-		}
-	}
 }
+	}
+	}
