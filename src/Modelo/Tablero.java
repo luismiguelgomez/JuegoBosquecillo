@@ -32,11 +32,7 @@ public class Tablero extends JPanel {
 
 
 
-	private final int MAXIMO_COLUMNAS_NIVEL_2 = 21;
-
-	
-	private final int MAXIMO_COLUMNAS_NIVEL_2 = 21 ;
-
+	private final int MAXIMO_COLUMNAS_NIVEL_2 = 21;	
 	private final int MAXIMO_FILAS_NIVEL_2 = 11;
 	char item;
 	int filaBosquecillo;
