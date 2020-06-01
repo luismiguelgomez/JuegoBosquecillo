@@ -23,7 +23,7 @@ import Modelo.VentanaNombre.GuardarNombreListener;
 import javax.swing.JTextArea;
 
 /**
- * MASTERRRR
+ * MASTER
  * @author Juan
  *
  * Crea la ventana inicial en la que deja elegir la dificultad del juego
@@ -33,7 +33,7 @@ public class VentanaInicio extends JFrame {
 	private JTextField textField;
 
 	/**
-	 *Comienzos de la aplicacion 
+	 *Comienzo de la aplicacion 
 	 */
 	public static void main(String[] args) {
 		
@@ -56,7 +56,6 @@ public class VentanaInicio extends JFrame {
 	/**
 	 *Crear JFrame para seleccionar nivel o ver reglas
 	 */
-	
 	public VentanaInicio() {
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 10));
 		setType(Type.NORMAL);
