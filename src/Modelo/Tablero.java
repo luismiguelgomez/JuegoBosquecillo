@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
 
 
 import javax.swing.JPanel;
@@ -30,7 +31,12 @@ public class Tablero extends JPanel {
 	private ArrayList<Area> areas;
 
 
+
 	private final int MAXIMO_COLUMNAS_NIVEL_2 = 21;
+
+	
+	private final int MAXIMO_COLUMNAS_NIVEL_2 = 21 ;
+
 	private final int MAXIMO_FILAS_NIVEL_2 = 11;
 	char item;
 	int filaBosquecillo;

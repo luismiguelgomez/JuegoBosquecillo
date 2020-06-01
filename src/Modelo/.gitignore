@@ -12,6 +12,10 @@
 /Prueba.class
 /Tablero$1.class
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 566106900c2d244a13c6130c45ef368658331a18
 /VentanaInicio.class
 /VentanaNombre.class
 /VentanaNombre$GuardarNombreListener.class
@@ -19,7 +23,13 @@
 /VentanaInicio$2.class
 /VentanaInicio$3.class
 /VentanaInicio$4.class
+<<<<<<< HEAD
 =======
 /Carro.class
 /VentanaInicio.class
 >>>>>>> origin/pruebas
+=======
+
+/Carro.class
+/VentanaInicio.class
+>>>>>>> 566106900c2d244a13c6130c45ef368658331a18
