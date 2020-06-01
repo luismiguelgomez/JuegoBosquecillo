@@ -1,6 +1,6 @@
 package Modelo;
 
-import java.awt.EventQueue;
+import java.awt.EventQueue; 
 import javax.swing.JFrame;
 
 public class Bosquecillo extends JFrame {

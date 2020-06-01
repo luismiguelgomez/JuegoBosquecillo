@@ -11,7 +11,9 @@ import java.awt.event.ActionListener;
 public class VentanaNombre extends JFrame {
 
 	/**
-	 * @author Juan Crea la ventana con todas sus medidas, el JTextField y JLabel
+	 * @author Juan 
+	 * Crea la ventana con todas sus medidas, el JTextField y JLabel en la que pide el nombre del usuario
+	 *
 	 */
 	private JLabel nombreLabel;
 	private JTextField nombreField;
@@ -34,10 +36,8 @@ public class VentanaNombre extends JFrame {
 
 	private void createButton() {
 		boton = new JButton("Guardar nombre");
-
 		ActionListener listener = new GuardarNombreListener();
 		boton.addActionListener(listener);
-
 	}
 
 	private void createPanel() {
@@ -56,30 +56,26 @@ public class VentanaNombre extends JFrame {
 	public class GuardarNombreListener implements ActionListener {
 
 		public String nombreUsuario;
-		
+
 		public void actionPerformed(ActionEvent event) {
 			String nombreUsuario = nombreField.getText();
 			jugadorGanador(nombreUsuario);
-			
+
 			Tablero claseTablero = new Tablero();
-			claseTablero.metodorueb(nombreUsuario);
+			claseTablero.metodoPrueba(nombreUsuario);
 		}
 
 		public String jugadorGanador(String nombreUsuario) {
-			
+
 			String hola;
 			hola = nombreUsuario;
 			return hola;
-			//System.out.println("El jugador " + hola + " ha ganado la partida");
 		}
-		
+
 		public void retornoNombre() {
-			nombreUsuario = jugadorGanador(nombreUsuario); 
+			nombreUsuario = jugadorGanador(nombreUsuario);
 		}
-		
-		public void jugadorPerdedor(String nombreUsuario) {
-			System.out.println("El jugador " + nombreUsuario + " ha perdido la partida");
-		}
+
 	}
 
 }

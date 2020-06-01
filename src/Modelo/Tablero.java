@@ -5,8 +5,10 @@ import java.awt.Graphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import javax.swing.JPanel;
 
+
+
+import javax.swing.JPanel;
 
 
 /**
@@ -26,16 +28,21 @@ public class Tablero extends JPanel {
 	private ArrayList<Wall> walls;
 	private ArrayList<Baggage> baggs;
 	private ArrayList<Area> areas;
-	
-	private final int MAXIMO_COLUMNAS_NIVEL_2 = 21 ;
+
+
+	private final int MAXIMO_COLUMNAS_NIVEL_2 = 21;
 	private final int MAXIMO_FILAS_NIVEL_2 = 11;
 	char item;
 	int filaBosquecillo;
 	int columnaBosquecillo;
 	int filaTormentoso;
 	int columnaTormentoso;
-	
+	int filaCarro;
+	int columnaCarro;
+	int premiosGanados;
+
 	private Player bosquecillo;
+	private Carro carro;
 	private Mortal mortal;
 	private Tormentoso tormentoso;
 	private int w = 0;
@@ -43,44 +50,66 @@ public class Tablero extends JPanel {
 
 	private boolean isCompleted = false;
 
-	private String level = "    ######\n" 
-			+ "    ##   #\n" 
-			+ "    ##$  #\n" 
-			+ "  ####  $##\n" 
-			+ "  ##  $ $ #\n"
-			+ "#### # ## #   ######\n" 
-			+ "##   # ## #####  ..#\n" 
-			+ "## $  $ %  m     ..#\n" 
-			+ "###### ### #@##  ..#\n"
-			+ "    ##     #########\n" 
-			+ "    ########\n";
-
+	private String level 
+           = "####################\n"
+            + "#                 #\n"
+            + "## @C            #\n"
+            + "###     ##        #\n"
+            + "#              ####\n"
+            + "#  $            % #\n"
+            + "#     ##       #######\n"
+            + "#                   1#\n"
+            + "#              #  ####\n"
+            + "#                 #\n"
+	        + "##  ##            #\n"
+            + "##               ##\n"
+	        + "#####           ###\n"
+            + "#    ##           #\n"
+            + "###################\n";
+	        
 	private String level2 
 			= "##################\n" 
 			+ "#                #\n" 
-			+ "##   @     $     #\n"
+			+ "##   @C          #\n"
 			+ "###   ##         #\n" 
 			+ "#     ##         #\n" 
 			+ "#    $           #\n" 
-			+ "#       ##      #####\n"
-			+ "#  $              ..#\n" 
-			+ "#  %       $      ..#\n" 
-			+ "#       ##    #######\n" 
+			+ "#       ##      ######\n"
+			+ "#  $                1#\n" 
+			+ "#  %       $       32#\n" 
+			+ "#       ##    ########\n" 
 			+ "##############\n";
+	
+	private String level3 
+        		= "  ########\n" 
+			+ "  #       #\n" 
+			+ "  #  @    #\n" 
+			+ "  #  C    ##\n" 
+			+ "  #   $ $ #\n"
+			+ "###       ##########\n" 
+			+ "##     ##     ##  ##\n" 
+			+ "## $  $ %         41#\n" 
+			+ "##  #    #     #  32#\n"
+			+ "##                  #\n"
+			+ " ####      %#########\n" 
+			+ "    ########\n";
+	
 
 	public Tablero() {
 		filaBosquecillo = 6;
 		columnaBosquecillo = 3;
 		filaTormentoso = 4;
 		columnaTormentoso = 9;
+		filaCarro = 7;
+		columnaCarro = 3;
 		initBoard();
 	}
-
+	
 	public void initBoard() {
-
+		
 		addKeyListener(new TAdapter());
 		setFocusable(true);
-		initWorld();
+		//aca estaba el initWorld();
 	}
 
 	public int getBoardWidth() {
@@ -90,8 +119,29 @@ public class Tablero extends JPanel {
 	public int getBoardHeight() {
 		return this.h;
 	}
+	
+	public int seleccionador;
+	String eligeNivel;
+	
+	public void dificultad(int pSeleccionador) {
 
-	public void initWorld() {
+		seleccionador = pSeleccionador;
+
+		if (seleccionador == 1) {
+			eligeNivel = level;
+			initWorld(eligeNivel);
+		}
+		if (seleccionador == 2) {
+			eligeNivel = level2;
+			initWorld(eligeNivel);
+		}
+		if (seleccionador == 3) {
+			eligeNivel = level3;
+			initWorld(eligeNivel);
+		}
+	}
+	
+	public void initWorld(String eligeNivel) {
 
 		walls = new ArrayList<>();
 		baggs = new ArrayList<>();
@@ -99,14 +149,14 @@ public class Tablero extends JPanel {
 
 		int x = OFFSET;
 		int y = OFFSET;
-
+		
 		Wall wall;
 		Baggage b;
 		Area a;
 
-		for (int i = 0; i < level2.length(); i++) {
+		for (int i = 0; i < eligeNivel.length(); i++) {
 
-			item = level2.charAt(i);
+			item = eligeNivel.charAt(i);
 
 			switch (item) {
 
@@ -132,7 +182,10 @@ public class Tablero extends JPanel {
 				x += SPACE;
 				break;
 
-			case '.':
+			case '1':
+			case '2':
+			case '3':
+			case '4':
 				a = new Area(x, y);
 				areas.add(a);
 				x += SPACE;
@@ -147,6 +200,12 @@ public class Tablero extends JPanel {
 				tormentoso = new Tormentoso(x, y);
 				x += SPACE;
 				break;
+		
+			case 'C':
+				carro = new Carro(x, y);
+				x += SPACE;
+
+				break;
 
 			case ' ':
 				x += SPACE;
@@ -158,12 +217,15 @@ public class Tablero extends JPanel {
 
 			h = y;
 		}
+	
 	}
+	
 
+	
 	public String nombre;
-	public void metodorueb(String pNombre) {
-		System.out.println("Me llego este nombre:" + pNombre);
+	public void metodoPrueba(String pNombre) {
 		nombre = pNombre;
+		System.out.println("Recibi el nombre de "+nombre);
 	}
 	
 	private void buildWorld(Graphics g) {
@@ -178,11 +240,11 @@ public class Tablero extends JPanel {
 		world.addAll(baggs);
 		world.add(bosquecillo);
 		world.add(tormentoso);
+		world.add(carro);
 
 		for (int i = 0; i < world.size(); i++) {
 
 			Actor item = world.get(i);
-//			GuardarNombreListener nombre;
 
 			if (item instanceof Player || item instanceof Baggage) {
 
@@ -193,7 +255,6 @@ public class Tablero extends JPanel {
 			}
 
 			if (isCompleted) {
-				
 				g.setColor(new Color(255, 255, 255));
 				g.drawString(" " +nombre+ " ha ganado", 25, 20);
 				g.drawString(" " +" ha ganado", 25, 20);
@@ -209,135 +270,241 @@ public class Tablero extends JPanel {
 		buildWorld(g);
 	}
 
+	/**
+	 * 
+	 * @author luisgomez por medio de la entrada de teclado, hacemos los movimientos
+	 *         del bosquecillo cada movimiento del bosquecillo revisa la colision.
+	 *
+	 *         El mountruo se mueve de forma que se mueve cuando el bosquecillo se
+	 *         mueve.
+	 *
+	 * Cuando se llega al punto de llegada hace una transicion
+	 */
 	private class TAdapter extends KeyAdapter {
-		
-		int movimientos = 231;
 
+		int movimientos = 231;
+		int diferenciaFila = 0;
+		int diferenciaColumna = 0;
 		@Override
+		
 		public void keyPressed(KeyEvent e) {
 
 			if (isCompleted) {
 				return;
 			}
 
-			int key = e.getKeyCode();
-
-			switch (key) {
-
-			case KeyEvent.VK_LEFT:
-				
-				if (checkWallCollision(bosquecillo, LEFT_COLLISION)) {
-					return;
+			System.out.println("***************");
+			diferenciaFila = filaCarro - filaBosquecillo;
+			diferenciaColumna= columnaCarro - columnaBosquecillo;
+			
+			System.out.println("diferenciaFILA.-" +  diferenciaFila);
+			System.out.println("COLUMNAdiferencia" + diferenciaColumna);
+			
+//			
+//			if (diferenciaFila > 3) {
+//				System.out.println("OJO VA MUY LEJOS DEL CARRO");
+//				return;
+//			}
+			
+			
+			/*Llega a fila 2 sin tener nada*/
+			if (columnaCarro == 9 && filaCarro == 19 && movimientos < 1) {
+				System.out.println("Perdio");
+				movimientos = 0;
+			}
+			
+			if (columnaCarro == 8 && filaCarro == 20) {
+				System.out.println("Creo que entro el primero");
+				premiosGanados = 1;
+				filaCarro = filaCarro - 6;
+				for (int i = 0; i <= 5; i++) {
+					carro.move(-SPACE, 0);
 				}
-				if (checkBagCollision(LEFT_COLLISION)) {
-					return;
-				}
-
-//				if (checkWallCollision(tormentoso, LEFT_COLLISION)) {
-//				} else {
-//					System.out.println("No hay nada");
-//					tormentoso.move(-SPACE, 0);
-//					filaTormentoso = filaTormentoso - 1;
-//					System.out.println("la columna del tormentoso es: "+ columnaTormentoso);
-//					System.out.println("la FIL del tormentoso es:" + filaTormentoso);
-//				}
-
-				bosquecillo.move(-SPACE, 0);
-				filaBosquecillo = filaBosquecillo - 1;
-				System.out.println("la columna del bosquecillo es:"+ columnaBosquecillo);
-				System.out.println("laFIL DE BOSQUE:" + filaBosquecillo);
+				System.out.println("A GANADO UN PREMIO:d");
 				repaint();
-				movimientoEnemigo();
-				break;
-
-			case KeyEvent.VK_RIGHT:
-				
-				if (checkWallCollision(bosquecillo, RIGHT_COLLISION)) {
-					return;
+			}
+			if (columnaCarro == 9 && filaCarro == 20) {
+				System.out.println("Creo que entro el segundo");
+				premiosGanados = 2;
+				filaCarro = filaCarro - 6;
+				for (int i = 0; i <= 5; i++) {
+					carro.move(-SPACE, 0);
 				}
-
-				if (checkBagCollision(RIGHT_COLLISION)) {
-					return;
-				}
-
-//				if (checkWallCollision(tormentoso, RIGHT_COLLISION)) {
-//				} else {
-//					tormentoso.move(SPACE, 0);
-//					filaTormentoso = filaTormentoso + 1;
-//					System.out.println("COL Tormentoso:" + columnaTormentoso);
-//					System.out.println("FIL Tormentoso:" + filaTormentoso);
-//				}
-
-				bosquecillo.move(SPACE, 0);
-				filaBosquecillo = filaBosquecillo + 1;
-				System.out.println("columna bosquecillo:" + columnaBosquecillo);
-				System.out.println("FILA BOSQUE:" + filaBosquecillo);
+				System.out.println("A GANADO UN PREMIO:d");
 				repaint();
-				movimientoEnemigo();
-				break;
+			}
 
-			// Arriba
-			case KeyEvent.VK_UP:
-				
-				if (checkWallCollision(bosquecillo, TOP_COLLISION)) {
-					return;
+			if (columnaCarro == 9 && filaCarro == 20) {
+				System.out.println("Creo que entro el segundo");
+				premiosGanados = 2;
+				filaCarro = filaCarro - 6;
+				for (int i = 0; i <= 5; i++) {
+					carro.move(-SPACE, 0);
 				}
-
-//				if (checkWallCollision(tormentoso, TOP_COLLISION)) {
-//				} else {
-//					tormentoso.move(0, -SPACE);
-//					columnaTormentoso = columnaTormentoso - 1;
-//					System.out.println("la FILA del tormentoso es: "+ filaTormentoso);
-//					System.out.println("La COLM del tormentoso es:" + columnaTormentoso);
-//				}
-
-				if (checkBagCollision(TOP_COLLISION)) {
-					return;
-				}
-
-				bosquecillo.move(0, -SPACE);
-				columnaBosquecillo = columnaBosquecillo - 1;
+				System.out.println("A GANADO UN PREMIO:d");
 				repaint();
-				movimientoEnemigo();
-				break;
+			}
 
-			case KeyEvent.VK_DOWN:
-				
-				if (checkWallCollision(bosquecillo, BOTTOM_COLLISION)) {
-                    return;
-                }
-                
-                if (checkBagCollision(BOTTOM_COLLISION)) {
-                    return;
-                }
+			if (columnaCarro == 8 && filaCarro == 20) {
+				System.out.println("Creo que entro el segundo");
+				premiosGanados = 2;
+				filaCarro = filaCarro - 6;
+				for (int i = 0; i <= 5; i++) {
+					carro.move(-SPACE, 0);
+				}
+				System.out.println("A GANADO UN PREMIO:d");
+				repaint();
+			}
+			System.out.println();
+			System.out.println("PREMIOS:"+premiosGanados);
+			System.out.println("FILA CARRO" + filaCarro);
+			System.out.println("COL CARRO :"+columnaCarro);
+			System.out.println("FIL BOS:" + filaBosquecillo);
+			System.out.println("COL BOS:"+columnaBosquecillo);
+			
+			/*Llega a fila 1 teniendo ya uno*/
+			if (premiosGanados == 1) {
+				System.out.println("Premio ganados son: "+ premiosGanados);
+				if (filaCarro == 18 && columnaCarro == 8) {
+					System.out.println("Perdio POR HP");
+					movimientos = 0;
+				}
+			}
+			
+			
+			if (movimientos > 0) {
+				int key = e.getKeyCode();
+				switch (key) {
+	
+				case KeyEvent.VK_LEFT:
+	
 
-                System.out.println();
-                bosquecillo.move(0, SPACE);
-//                filaBosquecillo = filaBosquecillo - 1;
-                columnaBosquecillo = columnaBosquecillo + 1;
-                System.out.println("la FILA del bosquecillo es: "+ filaBosquecillo);
-                System.out.println("COL bosquecillo:" + columnaBosquecillo);
-                System.out.println();
-                System.out.println("FILA TORMENTOSO:" + filaTormentoso);
-                System.out.println("COL TORMENTOSO: "+columnaTormentoso);
-                repaint();
-                movimientoEnemigo();
-                break;
+					if (diferenciaFila > 3) {
+						System.out.println("OJO VA MUY LEJOS DEL CARRO");
+						return;
+					}
+					if (checkWallCollision(bosquecillo, LEFT_COLLISION)) {
+						return;
+					}
+					if (checkBagCollision(LEFT_COLLISION)) {
+						return;
+					}
+	
+	//				if (checkWallCollision(tormentoso, LEFT_COLLISION)) {
+	//				} else {
+	//					System.out.println("No hay nada");
+	//					tormentoso.move(-SPACE, 0);
+	//					filaTormentoso = filaTormentoso - 1;
+	//					System.out.println("la columna del tormentoso es: "+ columnaTormentoso);
+	//					System.out.println("la FIL del tormentoso es:" + filaTormentoso);
+	//				}
+	
+					bosquecillo.move(-SPACE, 0);
+					filaBosquecillo = filaBosquecillo - 1;
+					repaint();
+					movimientoCarroIzquierda();
+					movimientoEnemigo();
+					break;
+	
+				case KeyEvent.VK_RIGHT:
+	
+					if (diferenciaFila < -3) {
+						System.out.println("OJO VA MUY LEJOS DEL CARRO");
+						return;
+					}
+					if (checkWallCollision(bosquecillo, RIGHT_COLLISION)) {
+						return;
+					}
+	
+					if (checkBagCollision(RIGHT_COLLISION)) {
+						return;
+					}
+	
+	//				if (checkWallCollision(tormentoso, RIGHT_COLLISION)) {
+	//				} else {
+	//					tormentoso.move(SPACE, 0);
+	//					filaTormentoso = filaTormentoso + 1;
+	//					System.out.println("COL Tormentoso:" + columnaTormentoso);
+	//					System.out.println("FIL Tormentoso:" + filaTormentoso);
+	//				}
+	
+					bosquecillo.move(SPACE, 0);
+					filaBosquecillo = filaBosquecillo + 1;
+					movimientoCarroDerecha();
+					repaint();
+					movimientoEnemigo();
+					break;
+	
+				// Arriba
+				case KeyEvent.VK_UP:
+	
+					if (diferenciaColumna > 3) {
+						System.out.println("OJO VA MUY LEJOS DEL CARRO");
+						return;
+					}
+					
+					if (checkWallCollision(bosquecillo, TOP_COLLISION)) {
+						return;
+					}
+	
+	//				if (checkWallCollision(tormentoso, TOP_COLLISION)) {
+	//				} else {
+	//					tormentoso.move(0, -SPACE);
+	//					columnaTormentoso = columnaTormentoso - 1;
+	//					System.out.println("la FILA del tormentoso es: "+ filaTormentoso);
+	//					System.out.println("La COLM del tormentoso es:" + columnaTormentoso);
+	//				}
+	
+					if (checkBagCollision(TOP_COLLISION)) {
+						return;
+					}
+	
+					bosquecillo.move(0, -SPACE);
+					columnaBosquecillo = columnaBosquecillo - 1;
+					repaint();
+					movimientoCarroArriba();
+					movimientoEnemigo();
+					break;
+	
+				case KeyEvent.VK_DOWN:
+	
+					if (diferenciaColumna < -3) {
+						System.out.println("OJO VA MUY LEJOS DEL CARRO");
+						return;
+					}
+					if (checkWallCollision(bosquecillo, BOTTOM_COLLISION)) {
+						return;
+					}
+	
+					if (checkBagCollision(BOTTOM_COLLISION)) {
+						return;
+					}
 
-			case KeyEvent.VK_R:
-
-				restartLevel();
-
-				break;
-
-			default:
-				break;
+					bosquecillo.move(0, SPACE);
+					columnaBosquecillo = columnaBosquecillo + 1;
+					System.out.println();
+					movimientoCarroAbajo();
+	//              filaBosquecillo = filaBosquecillo - 1;
+					repaint();
+					movimientoEnemigo();
+	
+					break;
+	
+				case KeyEvent.VK_R:
+	
+					restartLevel();
+	
+					break;
+	
+				default:
+					break;
+				}
 			}
 
 			movimientos = movimientos - 1;
-			
+
 			if (columnaBosquecillo == columnaTormentoso) {
-				if (filaBosquecillo -2 == filaTormentoso || filaBosquecillo -1 == filaTormentoso ) {
+				if (filaBosquecillo - 2 == filaTormentoso || filaBosquecillo - 1 == filaTormentoso) {
 					System.out.println();
 					System.out.println("Se resta movimientos al bosquecillo");
 					System.out.println("los movimientos anteriores son:" + movimientos);
@@ -346,7 +513,7 @@ public class Tablero extends JPanel {
 					movimientos = movimientos - restaMovimientos;
 					System.out.println("los movimientos restantes son:" + movimientos);
 				}
-				if (filaBosquecillo +2 == filaTormentoso || filaBosquecillo +1 == filaTormentoso ) {
+				if (filaBosquecillo + 2 == filaTormentoso || filaBosquecillo + 1 == filaTormentoso) {
 					System.out.println();
 					System.out.println("Se resta movimientos al bosquecillo");
 					System.out.println("los movimientos anteriores son:" + movimientos);
@@ -365,10 +532,10 @@ public class Tablero extends JPanel {
 					System.out.println("los movimientos restantes son:" + movimientos);
 				}
 			}
-			
+
 			if (filaBosquecillo == filaTormentoso) {
 				System.out.println("ESTOY EN EL 2 IF GRANDE");
-				if (columnaBosquecillo + 2 == columnaTormentoso || columnaBosquecillo + 1 == columnaTormentoso ) {
+				if (columnaBosquecillo + 2 == columnaTormentoso || columnaBosquecillo + 1 == columnaTormentoso) {
 					System.out.println();
 					System.out.println("Se resta movimientos al bosquecillo");
 					System.out.println("los movimientos anteriores son:" + movimientos);
@@ -377,8 +544,8 @@ public class Tablero extends JPanel {
 					movimientos = movimientos - restaMovimientos;
 					System.out.println("los movimientos restantes son:" + movimientos);
 				}
-				
-				if (columnaBosquecillo - 2 == columnaTormentoso || columnaBosquecillo - 1 == columnaTormentoso ) {
+
+				if (columnaBosquecillo - 2 == columnaTormentoso || columnaBosquecillo - 1 == columnaTormentoso) {
 					System.out.println();
 					System.out.println("Se resta movimientos al bosquecillo");
 					System.out.println("los movimientos anteriores son:" + movimientos);
@@ -387,23 +554,19 @@ public class Tablero extends JPanel {
 					movimientos = movimientos - restaMovimientos;
 					System.out.println("los movimientos restantes son:" + movimientos);
 				}
-			}
-			
-			if (isCompleted) {
-				
 			}
 			if (filaBosquecillo == filaTormentoso && columnaBosquecillo == columnaTormentoso) {
 				System.out.println("Perdio");
 				movimientos = 0;
-			} else if (movimientos == 0) {
+			} else if (movimientos <= 0) {
+				System.out.println("PERDIOOOO");
 			} else {
 				repaint();
 			}
-			
-			
+
 		}
 	}
-	
+
 	private void movimientoEnemigo() {
 		if (columnaBosquecillo == columnaTormentoso) {
 			System.out.println("1111ENEMIGOS1111");
@@ -415,25 +578,24 @@ public class Tablero extends JPanel {
 				tormentoso.move(-SPACE, 0);
 				filaTormentoso = filaTormentoso - 1;
 			}
-		} 
-		else {
+		} else {
 			System.out.println("2222ENEMIGOS222");
 			if (filaBosquecillo == filaTormentoso) {
-				
+
 				if (columnaBosquecillo < columnaTormentoso) {
 					System.out.println("1,2");
 					tormentoso.move(0, -SPACE);
 					columnaTormentoso = columnaTormentoso - 1;
 				}
-				
+
 				if (columnaBosquecillo > columnaTormentoso) {
 					System.out.println("21");
 					tormentoso.move(0, SPACE);
 					columnaTormentoso = columnaTormentoso + 1;
-				} 
-				
+				}
+
 			} else {
-				/*Codigo a mostrar al profesor*/
+				/* Codigo a mostrar al profesor */
 //				if (filaBosquecillo > filaTormentoso) {
 //					tormentoso.move(SPACE, 0);
 //					filaTormentoso = filaTormentoso + 1;
@@ -445,7 +607,7 @@ public class Tablero extends JPanel {
 		}
 		System.out.println();
 		System.out.println();
-		System.out.println("la FILA del bosquecillo es: "+ filaBosquecillo);
+		System.out.println("la FILA del bosquecillo es: " + filaBosquecillo);
 		System.out.println("La COL del bosquecillo es:" + columnaBosquecillo);
 		System.out.println();
 		System.out.println("FILA TORMENTO :" + filaTormentoso);
@@ -453,7 +615,6 @@ public class Tablero extends JPanel {
 		repaint();
 	}
 
-	
 	private boolean checkWallCollision(Actor actor, int type) {
 
 		switch (type) {
@@ -520,8 +681,47 @@ public class Tablero extends JPanel {
 		return false;
 	}
 
-	
-	
+	private boolean movimientoCarroIzquierda() {
+		if (filaBosquecillo == filaCarro && columnaBosquecillo == columnaCarro) {
+			System.out.println("EL bosquecillo y el carro estan en la misma parte");
+			carro.move(-SPACE, 0);
+			filaCarro = filaCarro -1;
+		}
+
+		return isCompleted;
+	}
+
+	private boolean movimientoCarroDerecha() {
+		if (filaBosquecillo == filaCarro && columnaBosquecillo == columnaCarro) {
+			System.out.println("EL bosquecillo y el carro estan en la misma parte");
+			carro.move(SPACE, 0);
+			filaCarro = filaCarro + 1;
+		}
+
+		return isCompleted;
+	}
+
+	private boolean movimientoCarroArriba() {
+		if (filaBosquecillo == filaCarro && columnaBosquecillo == columnaCarro) {
+			System.out.println("EL bosquecillo y el carro estan en la misma parte");
+			carro.move(0, -SPACE);
+			columnaCarro = columnaCarro - 1;
+		}
+
+		return isCompleted;
+	}
+
+	private boolean movimientoCarroAbajo() {
+		System.out.println("Entre a carro abajo");
+		if (filaBosquecillo == filaCarro && columnaBosquecillo == columnaCarro) {
+			System.out.println("EL bosquecillo y el carro estan en la misma parte");
+			carro.move(0, SPACE);
+			columnaCarro = columnaCarro + 1;
+		}
+
+		return true;
+	}
+
 	private boolean checkBagCollision(int type) {
 
 		switch (type) {
@@ -712,10 +912,10 @@ public class Tablero extends JPanel {
 		baggs.clear();
 		walls.clear();
 
-		initWorld();
+		initWorld(eligeNivel);
 
 		if (isCompleted) {
 			isCompleted = false;
-		}
-	}
 }
+	}
+	}
