@@ -1,16 +1,24 @@
 package Modelo;
 
-import java.awt.EventQueue; 
+import java.awt.EventQueue;  
 import javax.swing.JFrame;
 
-import Modelo.VentanaNombre.GuardarNombreListener;
 
 public class Bosquecillo extends JFrame {
 
+	/**
+	 * No deja salir al jugador de esta dimension
+	 */
 	private final int OFFSET = 30;
+	/**
+	 * Variable de ventana inicio
+	 */
 	public static int ventanaInicio;
 	
 
+	/**
+	 * Metodo constructor de la clase bosquecillo
+	 */
 	public Bosquecillo() {
 
 		initUI();
@@ -32,6 +40,10 @@ public class Bosquecillo extends JFrame {
 		setLocationRelativeTo(null);
 	}
 	
+	/**
+	 * @deprecated lo pensabamos utilizar para el nivel del juego
+	 * @param num entero proveniente de la ventana inicio
+	 */
 	public void datosVentanaInicio(int num) {
 		ventanaInicio = num;
 	}
@@ -39,7 +51,7 @@ public class Bosquecillo extends JFrame {
 
 	/**
 	 * Metodo por donde inicia la ejecucion del programa 
-	 * @param args
+	 * @param args es necesario para el main
 	 */
 	public static void main(String[] args) {
 
@@ -49,22 +61,6 @@ public class Bosquecillo extends JFrame {
 					System.out.println("2");
 					VentanaInicio frame = new VentanaInicio();
 					frame.setVisible(true);
-//					if (ventanaInicio == 1) {
-//						System.out.println("yupi");
-//						frame.setVisible(false);
-//						
-//						EventQueue.invokeLater(() -> {
-//
-//							System.out.println("1");
-//							JFrame frames = new VentanaNombre();
-//							frames.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//							frames.setVisible(true);
-//							
-//							System.out.println("3");
-//							Bosquecillo game = new Bosquecillo();
-//							game.setVisible(true);
-//						});
-//					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -75,27 +71,22 @@ public class Bosquecillo extends JFrame {
 	}
 
 	public static int n2 = 0;
+	
+	/**
+	 * Llama a la clase bosquecillo y esta crea el juego
+	 */
 	private static void otro() {
 		int numeroVeces=0;
 		if (ventanaInicio == 1) {
-	//			numeroVeces = numeroVeces+1;
-	//			VentanaInicio frame = new VentanaInicio();
-	//			frame.setVisible(false);
-				
 				EventQueue.invokeLater(() -> {
 				
-					JFrame frames = new VentanaNombre();
 					
 					Bosquecillo game = new Bosquecillo();
 					if (n2 == 0) {
 						game.setVisible(true);
-						frames.setVisible(true);
 						n2 = numeroVeces + 1;
 					}
 					
-					frames.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-					frames.setLocationRelativeTo(null);
-//					frames.setEnabled(false);
 				});
 				
 		} else {
