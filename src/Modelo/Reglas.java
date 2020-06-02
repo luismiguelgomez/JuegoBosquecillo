@@ -7,24 +7,33 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * 
  * @author Juan
  * Muestra la ventana de las reglas del juego
  *
  */
 public class Reglas extends JFrame {
 
+
+	/**
+	 * Metodo constructor de mostrar Reglas
+	 */
 	public Reglas() {
 		muestraReglas();
 		createPanel();
 		setBounds(430, 200, 500, 250);
 	}
 
+	/**
+	 * crea el panel
+	 */
 	public void muestraReglas() {
 
 		createPanel();
 	}
 
+	/**
+	 * Metodo que muestra el panel y los datos de las reglas del juego
+	 */
 	private void createPanel() {
 		JPanel panel = new JPanel();
 		add(panel);

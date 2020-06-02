@@ -1,26 +1,10 @@
 package Modelo;
-import java.awt.Container;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.net.URL;
 import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Window.Type;
-import javax.swing.JTextPane;
-
-import Modelo.VentanaNombre.GuardarNombreListener;
-
-import javax.swing.JTextArea;
 
 /**
  * MASTER
@@ -32,16 +16,10 @@ import javax.swing.JTextArea;
 public class VentanaInicio extends JFrame {
 	private JTextField textField;
 
-	/**
-	 *Comienzo de la aplicacion 
-	 */
-//	public static void main(String[] args) {
-//		
-//		
-//	}
 
 	/**
-	 *Crear JFrame para seleccionar nivel o ver reglas
+	 * @deprecated Crear JFrame para seleccionar nivel o ver reglas
+	 * @return devuelve un boolean
 	 */
 	public boolean saberVentana() {
 		boolean ventana = true;
@@ -52,6 +30,9 @@ public class VentanaInicio extends JFrame {
 		
 		return ventana;
 	}
+	/**
+	 * Metodo constructor
+	 */
 	public VentanaInicio() {
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 10));
 		setType(Type.NORMAL);
@@ -64,44 +45,16 @@ public class VentanaInicio extends JFrame {
 		this.setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
-		JButton botonFacil = new JButton("Facil");
-		botonFacil.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//System.out.println("Se oprimio");
-				int nivel = 1;	
-				Tablero claseTablero = new Tablero();
-				claseTablero.dificultad(1);
-				saberVentana();
-				}
-		});
-		botonFacil.setBounds(100, 290, 116, 42);
-		getContentPane().add(botonFacil);
 		
-		JButton botonIntermedio = new JButton("Intermedio");
+		JButton botonIntermedio = new JButton("Jugar");
 		botonIntermedio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int nivel = 2;
 				System.out.println("saber ventana");
 				saberVentana();
-				
-//				claseTablero.initWorld("level2");
-//				claseTablero.dificultad(nivel);
 			}
 		});
-		botonIntermedio.setBounds(250, 290, 117, 42);
+		botonIntermedio.setBounds(234, 240, 140, 42);
 		getContentPane().add(botonIntermedio);
-		
-		JButton botonDificil = new JButton("Dificil");
-		botonDificil.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int nivel = 3;
-				Tablero claseTablero = new Tablero();
-				claseTablero.dificultad(nivel);
-				saberVentana();
-			}
-		});
-		botonDificil.setBounds(400, 290, 108, 42);
-		getContentPane().add(botonDificil);
 		
 		JButton botonReglas = new JButton("Reglas");
 		botonReglas.addActionListener(new ActionListener(){
@@ -111,7 +64,7 @@ public class VentanaInicio extends JFrame {
 			
 			}
 		});
-		botonReglas.setBounds(258,340,100,40);
+		botonReglas.setBounds(255,315,100,40);
 		getContentPane().add(botonReglas);		
 	}
 
