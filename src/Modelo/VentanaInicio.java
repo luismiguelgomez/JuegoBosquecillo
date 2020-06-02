@@ -35,27 +35,23 @@ public class VentanaInicio extends JFrame {
 	/**
 	 *Comienzo de la aplicacion 
 	 */
-	public static void main(String[] args) {
-		
-		JFrame frames = new VentanaNombre();
-		frames.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frames.setVisible(true);
-		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaInicio frame = new VentanaInicio();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		
+//		
+//	}
 
 	/**
 	 *Crear JFrame para seleccionar nivel o ver reglas
 	 */
+	public boolean saberVentana() {
+		boolean ventana = true;
+
+		System.out.println("sssss");
+		Bosquecillo classeBosquecillo = new Bosquecillo();
+		classeBosquecillo.datosVentanaInicio(1);
+		
+		return ventana;
+	}
 	public VentanaInicio() {
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 10));
 		setType(Type.NORMAL);
@@ -74,7 +70,8 @@ public class VentanaInicio extends JFrame {
 				//System.out.println("Se oprimio");
 				int nivel = 1;	
 				Tablero claseTablero = new Tablero();
-				claseTablero.dificultad(nivel);
+				claseTablero.dificultad(1);
+				saberVentana();
 				}
 		});
 		botonFacil.setBounds(100, 290, 116, 42);
@@ -84,8 +81,11 @@ public class VentanaInicio extends JFrame {
 		botonIntermedio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int nivel = 2;
-				Tablero claseTablero = new Tablero();
-				claseTablero.dificultad(nivel);
+				System.out.println("saber ventana");
+				saberVentana();
+				
+//				claseTablero.initWorld("level2");
+//				claseTablero.dificultad(nivel);
 			}
 		});
 		botonIntermedio.setBounds(250, 290, 117, 42);
@@ -97,6 +97,7 @@ public class VentanaInicio extends JFrame {
 				int nivel = 3;
 				Tablero claseTablero = new Tablero();
 				claseTablero.dificultad(nivel);
+				saberVentana();
 			}
 		});
 		botonDificil.setBounds(400, 290, 108, 42);

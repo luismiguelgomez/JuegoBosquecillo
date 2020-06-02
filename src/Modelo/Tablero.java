@@ -38,6 +38,8 @@ public class Tablero extends JPanel {
 	int filaBosquecillo;
 	int columnaBosquecillo;
 	int filaTormentoso;
+	int filaMortal;
+	int columnaMortal;
 	int columnaTormentoso;
 	int filaCarro;
 	int columnaCarro;
@@ -53,21 +55,18 @@ public class Tablero extends JPanel {
 	private boolean isCompleted = false;
 
 	private String level 
-           = "####################\n"
-            + "#                 #\n"
-            + "## @C            #\n"
-            + "###     ##        #\n"
-            + "#              ####\n"
-            + "#  $            % #\n"
-            + "#     ##       #######\n"
-            + "#                   1#\n"
-            + "#              #  ####\n"
-            + "#                 #\n"
-	        + "##  ##            #\n"
-            + "##               ##\n"
-	        + "#####           ###\n"
-            + "#    ##           #\n"
-            + "###################\n";
+		    = "####################\n"
+		     + "#                 #\n"
+		     + "##  @C            #\n"
+		     + "###     ##        #\n"
+		     + "#              ####\n"
+		     + "#  $             #\n"
+		     + "#     ##       #####\n"
+		     + "#                 1#\n"
+		     + "##%               2#\n"
+		     + "#####       $   ####\n"
+		     + "#                 #\n"
+		     + "###################\n";
 	        
 	private String level2 
 			= "##################\n" 
@@ -79,7 +78,7 @@ public class Tablero extends JPanel {
 			+ "#       ##      ######\n"
 			+ "#  $                1#\n" 
 			+ "#  %       $       32#\n" 
-			+ "#       ##    ########\n" 
+			+ "#  M    ##    ########\n" 
 			+ "##############\n";
 	
 	private String level3 
@@ -102,6 +101,8 @@ public class Tablero extends JPanel {
 		columnaBosquecillo = 3;
 		filaTormentoso = 4;
 		columnaTormentoso = 9;
+		filaMortal = 4;
+		columnaMortal = 10;
 		filaCarro = 7;
 		columnaCarro = 3;
 		initBoard();
@@ -111,7 +112,7 @@ public class Tablero extends JPanel {
 		
 		addKeyListener(new TAdapter());
 		setFocusable(true);
-		//aca estaba el initWorld();
+		initWorld();
 	}
 
 	public int getBoardWidth() {
@@ -131,19 +132,18 @@ public class Tablero extends JPanel {
 
 		if (seleccionador == 1) {
 			eligeNivel = level;
-			initWorld(eligeNivel);
 		}
 		if (seleccionador == 2) {
 			eligeNivel = level2;
-			initWorld(eligeNivel);
+//			initWorld(eligeNivel);
 		}
 		if (seleccionador == 3) {
 			eligeNivel = level3;
-			initWorld(eligeNivel);
+//			initWorld(eligeNivel);
 		}
 	}
 	
-	public void initWorld(String eligeNivel) {
+	public void initWorld() {
 
 		walls = new ArrayList<>();
 		baggs = new ArrayList<>();
@@ -156,9 +156,9 @@ public class Tablero extends JPanel {
 		Baggage b;
 		Area a;
 
-		for (int i = 0; i < eligeNivel.length(); i++) {
+		for (int i = 0; i < level2.length(); i++) {
 
-			item = eligeNivel.charAt(i);
+			item = level2.charAt(i);
 
 			switch (item) {
 
@@ -202,6 +202,11 @@ public class Tablero extends JPanel {
 				tormentoso = new Tormentoso(x, y);
 				x += SPACE;
 				break;
+				
+			case 'M':
+				mortal = new Mortal(x, y);
+				x += SPACE;
+				break;
 		
 			case 'C':
 				carro = new Carro(x, y);
@@ -243,6 +248,7 @@ public class Tablero extends JPanel {
 		world.add(bosquecillo);
 		world.add(tormentoso);
 		world.add(carro);
+		world.add(mortal);
 
 		for (int i = 0; i < world.size(); i++) {
 
@@ -255,16 +261,14 @@ public class Tablero extends JPanel {
 
 				g.drawImage(item.getImage(), item.x(), item.y(), this);
 			}
-
 			if (isCompleted) {
 				g.setColor(new Color(255, 255, 255));
-				g.drawString(" " +nombre+ " ha ganado", 25, 20);
-				g.drawString(" " +" ha ganado", 25, 20);
+				g.drawString("¡Ha ganado!", 25, 20);
 			}
 
 		}
 	}
-
+	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -357,18 +361,10 @@ public class Tablero extends JPanel {
 				System.out.println("A GANADO UN PREMIO:d");
 				repaint();
 			}
-			System.out.println();
-			System.out.println("PREMIOS:"+premiosGanados);
-			System.out.println("FILA CARRO" + filaCarro);
-			System.out.println("COL CARRO :"+columnaCarro);
-			System.out.println("FIL BOS:" + filaBosquecillo);
-			System.out.println("COL BOS:"+columnaBosquecillo);
-			
 			/*Llega a fila 1 teniendo ya uno*/
 			if (premiosGanados == 1) {
 				System.out.println("Premio ganados son: "+ premiosGanados);
 				if (filaCarro == 18 && columnaCarro == 8) {
-					System.out.println("Perdio POR HP");
 					movimientos = 0;
 				}
 			}
@@ -406,6 +402,7 @@ public class Tablero extends JPanel {
 					repaint();
 					movimientoCarroIzquierda();
 					movimientoEnemigo();
+					movimientoEnemigoMortal();
 					break;
 	
 				case KeyEvent.VK_RIGHT:
@@ -560,7 +557,11 @@ public class Tablero extends JPanel {
 			if (filaBosquecillo == filaTormentoso && columnaBosquecillo == columnaTormentoso) {
 				System.out.println("Perdio");
 				movimientos = 0;
-			} else if (movimientos <= 0) {
+			}if (filaBosquecillo == filaMortal && columnaBosquecillo == columnaMortal) {
+				System.out.println("Perdio");
+				movimientos = 0;
+			}
+			else if (movimientos <= 0) {
 				System.out.println("PERDIOOOO");
 			} else {
 				repaint();
@@ -569,6 +570,54 @@ public class Tablero extends JPanel {
 		}
 	}
 
+	private void movimientoEnemigoMortal() {
+		if (columnaBosquecillo == columnaMortal) {
+			System.out.println("1111ENEMIGOS1111");
+			if (filaBosquecillo > filaMortal) {
+				mortal.move(SPACE, 0);
+				filaMortal = filaMortal + 1;
+//			} else if(filaBosquecillo < filaTormentoso){
+			} else {
+				mortal.move(-SPACE, 0);
+				filaMortal = filaMortal - 1;
+			}
+		} else {
+			System.out.println("2222ENEMIGOS222");
+			if (filaBosquecillo == filaMortal) {
+
+				if (columnaBosquecillo < columnaMortal) {
+					System.out.println("1,2");
+					mortal.move(0, -SPACE);
+					columnaMortal = columnaMortal - 1;
+				}
+
+				if (columnaBosquecillo > columnaMortal) {
+					System.out.println("21");
+					mortal.move(0, SPACE);
+					columnaMortal = columnaMortal + 1;
+				}
+
+			} else {
+				/* Codigo a mostrar al profesor */
+//				if (filaBosquecillo > filaTormentoso) {
+//					tormentoso.move(SPACE, 0);
+//					filaTormentoso = filaTormentoso + 1;
+//				} else {
+//					tormentoso.move(-SPACE, 0);
+//					filaTormentoso = filaTormentoso - 1;
+//				}
+			}
+		}
+		System.out.println();
+		System.out.println();
+		System.out.println("la FILA del bosquecillo es: " + filaBosquecillo);
+		System.out.println("La COL del bosquecillo es:" + columnaBosquecillo);
+		System.out.println();
+		System.out.println("FILA TORMENTO :" + filaTormentoso);
+		System.out.println("COL TORMTEN:" + columnaTormentoso);
+		repaint();
+	}
+	
 	private void movimientoEnemigo() {
 		if (columnaBosquecillo == columnaTormentoso) {
 			System.out.println("1111ENEMIGOS1111");
@@ -914,7 +963,7 @@ public class Tablero extends JPanel {
 		baggs.clear();
 		walls.clear();
 
-		initWorld(eligeNivel);
+		initWorld();
 
 		if (isCompleted) {
 			isCompleted = false;

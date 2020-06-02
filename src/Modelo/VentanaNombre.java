@@ -31,7 +31,7 @@ public class VentanaNombre extends JFrame {
 		nombreLabel = new JLabel("Por favor digite su nombre, guardelo y cierre la ventana: ");
 		final int FIELD_WIDTH = 15;
 		nombreField = new JTextField(FIELD_WIDTH);
-
+		nombreField.setEditable(true);
 	}
 
 	private void createButton() {
@@ -60,7 +60,7 @@ public class VentanaNombre extends JFrame {
 		public void actionPerformed(ActionEvent event) {
 			String nombreUsuario = nombreField.getText();
 			jugadorGanador(nombreUsuario);
-
+			setVisible(false);
 			Tablero claseTablero = new Tablero();
 			claseTablero.metodoPrueba(nombreUsuario);
 		}
@@ -69,6 +69,7 @@ public class VentanaNombre extends JFrame {
 
 			String hola;
 			hola = nombreUsuario;
+			
 			return hola;
 		}
 
