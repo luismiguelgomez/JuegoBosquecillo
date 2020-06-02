@@ -7,6 +7,12 @@ public class Actor {
     private int x;
     private int y;
     private Image image;
+    
+    /**
+     * Este metodo nos dara las posiciones iniciales del muñeco
+     * @param x posicion en eje x
+     * @param y posicion en eje y
+     */
 
     public Actor(int x, int y) {
         
@@ -41,7 +47,11 @@ public class Actor {
         
         this.y = y;
     }
-
+/**
+ * Este metodo revisa las colisiones del actor
+ * @param actor o
+ * @return si hay o no colision
+ */
     public boolean isLeftCollision(Actor actor) {
         
         return x() - SPACE == actor.x() && y() == actor.y();

@@ -16,7 +16,9 @@ public class Bosquecillo extends JFrame {
 		initUI();
 		otro();
 	}
-
+	/**
+	 * Este metodo es utilizado para cargar el tablero 
+	 */
 	private void initUI() {
 
 		Tablero board = new Tablero();
@@ -35,6 +37,10 @@ public class Bosquecillo extends JFrame {
 	}
 	
 
+	/**
+	 * Metodo por donde inicia la ejecucion del programa 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 		EventQueue.invokeLater(new Runnable() {

@@ -14,35 +14,85 @@ import javax.swing.JPanel;
 
 /**
  * Inicializa el tablero y crea el ambiente de juego
- * 
+ * 	
+ * @author luisGomez
  * @author valkirian
  * @author Juan	
+ * @author Mateo
  */
 public class Tablero extends JPanel {
+	/**
+	 * Constante para saber el limite
+	 */
 	private final int OFFSET = 30;
+	/**
+	 * Constante para saber el espacio
+	 */
 	private final int SPACE = 20;
+	/**
+	 * Constante para saber la colision izquierda
+	 */
 	private final int LEFT_COLLISION = 1;
+	/**
+	 * Constante para saber la colision derecha
+	 */
 	private final int RIGHT_COLLISION = 2;
+	/**
+	 * Constante para saber la colision arriba
+	 */
 	private final int TOP_COLLISION = 3;
+	/**
+	 * Constante para saber la colision abajo
+	 */
 	private final int BOTTOM_COLLISION = 4;
 
 	private ArrayList<Wall> walls;
 	private ArrayList<Baggage> baggs;
 	private ArrayList<Area> areas;
 
+	/**
+	 * Constante del maximo de columnas del nivel 2
+	 */
+	private final int MAXIMO_COLUMNAS_NIVEL_2 = 21;
+	/**
+	 * Constante del maximo defilas del nivel 2
+	 */
 
-
-	private final int MAXIMO_COLUMNAS_NIVEL_2 = 21;	
 	private final int MAXIMO_FILAS_NIVEL_2 = 11;
+	
 	char item;
+	/**
+	 * sirve para conocer la fila de bosquecillo
+	 */
 	int filaBosquecillo;
+	/**
+	 * sirve para conocer la columna de bosquecillo
+	 */
 	int columnaBosquecillo;
+	/**
+	 * sirve para conocer la fila del tormentoso
+	 */
 	int filaTormentoso;
+
 	int filaMortal;
 	int columnaMortal;
+
+	/**
+	 * sirve para conocer la columna del tormentoso
+	 */
+
 	int columnaTormentoso;
+	/**
+	 * sirve para conocer la fila del carro
+	 */
 	int filaCarro;
+	/**
+	 * Sirve para coocer la columna del carro
+	 */
 	int columnaCarro;
+	/**
+	 * Sirve para conocer los premios ganados
+	 */
 	int premiosGanados;
 
 	private Player bosquecillo;
@@ -82,20 +132,22 @@ public class Tablero extends JPanel {
 			+ "##############\n";
 	
 	private String level3 
-        		= "  ########\n" 
+        	= "  ########\n" 
 			+ "  #       #\n" 
-			+ "  #  @    #\n" 
-			+ "  #  C    ##\n" 
+			+ "  #  @C   #\n" 
+			+ "  #       ##\n" 
 			+ "  #   $ $ #\n"
 			+ "###       ##########\n" 
 			+ "##     ##     ##  ##\n" 
-			+ "## $  $ %         41#\n" 
-			+ "##  #    #     #  32#\n"
-			+ "##                  #\n"
-			+ " ####      %#########\n" 
+			+ "## $  $          41#\n" 
+			+ "##  #    #     # 32#\n"
+			+ "##       %          #\n"
+			+ " ####      #########\n" 
 			+ "    ########\n";
 	
-
+/**
+ * Este metodo es utilizado para indicar los elemetos del juego 
+ */
 	public Tablero() {
 		filaBosquecillo = 6;
 		columnaBosquecillo = 3;
@@ -122,6 +174,7 @@ public class Tablero extends JPanel {
 	public int getBoardHeight() {
 		return this.h;
 	}
+
 	
 	public int seleccionador;
 	String eligeNivel;
@@ -142,7 +195,9 @@ public class Tablero extends JPanel {
 //			initWorld(eligeNivel);
 		}
 	}
-	
+	/**
+ * esta clase es usada para buscar el nivel y se inicializa los componentes del tablero 
+ */
 	public void initWorld() {
 
 		walls = new ArrayList<>();
@@ -156,9 +211,9 @@ public class Tablero extends JPanel {
 		Baggage b;
 		Area a;
 
-		for (int i = 0; i < level2.length(); i++) {
+		for (int i = 0 ; i < level3.length(); i++) {
 
-			item = level2.charAt(i);
+			item = level3.charAt(i);
 
 			switch (item) {
 
@@ -226,15 +281,18 @@ public class Tablero extends JPanel {
 		}
 	
 	}
-	
 
-	
 	public String nombre;
 	public void metodoPrueba(String pNombre) {
 		nombre = pNombre;
 		System.out.println("Recibi el nombre de "+nombre);
 	}
 	
+
+/**
+ * Este metodo pinta una pnatalla negra donde traera todos los elementos del juego 
+ * @param g se utiliza para graficar imagenes 
+ */
 	private void buildWorld(Graphics g) {
 
 		g.setColor(new Color(0, 0, 0));
@@ -263,7 +321,7 @@ public class Tablero extends JPanel {
 			}
 			if (isCompleted) {
 				g.setColor(new Color(255, 255, 255));
-				g.drawString("¡Ha ganado!", 25, 20);
+				g.drawString("ï¿½Ha ganado!", 25, 20);
 			}
 
 		}
@@ -281,7 +339,7 @@ public class Tablero extends JPanel {
 	 * @author luisgomez por medio de la entrada de teclado, hacemos los movimientos
 	 *         del bosquecillo cada movimiento del bosquecillo revisa la colision.
 	 *
-	 *         El mountruo se mueve de forma que se mueve cuando el bosquecillo se
+	 *         El mounstruo se mueve de forma que se mueve cuando el bosquecillo se
 	 *         mueve.
 	 *
 	 * Cuando se llega al punto de llegada hace una transicion
@@ -289,9 +347,11 @@ public class Tablero extends JPanel {
 	private class TAdapter extends KeyAdapter {
 
 		int movimientos = 231;
-		int diferenciaFila = 0;
-		int diferenciaColumna = 0;
+
 		@Override
+		/**
+		 * Este metodo es utilizado para traer todos los enventos del teclado 
+		 */
 		
 		public void keyPressed(KeyEvent e) {
 
@@ -299,19 +359,6 @@ public class Tablero extends JPanel {
 				return;
 			}
 
-			System.out.println("***************");
-			diferenciaFila = filaCarro - filaBosquecillo;
-			diferenciaColumna= columnaCarro - columnaBosquecillo;
-			
-			System.out.println("diferenciaFILA.-" +  diferenciaFila);
-			System.out.println("COLUMNAdiferencia" + diferenciaColumna);
-			
-//			
-//			if (diferenciaFila > 3) {
-//				System.out.println("OJO VA MUY LEJOS DEL CARRO");
-//				return;
-//			}
-			
 			
 			/*Llega a fila 2 sin tener nada*/
 			if (columnaCarro == 9 && filaCarro == 19 && movimientos < 1) {
@@ -339,8 +386,7 @@ public class Tablero extends JPanel {
 				System.out.println("A GANADO UN PREMIO:d");
 				repaint();
 			}
-
-			if (columnaCarro == 9 && filaCarro == 20) {
+			if (columnaCarro == 9 && filaCarro == 19) {
 				System.out.println("Creo que entro el segundo");
 				premiosGanados = 2;
 				filaCarro = filaCarro - 6;
@@ -350,8 +396,7 @@ public class Tablero extends JPanel {
 				System.out.println("A GANADO UN PREMIO:d");
 				repaint();
 			}
-
-			if (columnaCarro == 8 && filaCarro == 20) {
+			if (columnaCarro == 8 && filaCarro == 19) {
 				System.out.println("Creo que entro el segundo");
 				premiosGanados = 2;
 				filaCarro = filaCarro - 6;
@@ -376,11 +421,6 @@ public class Tablero extends JPanel {
 	
 				case KeyEvent.VK_LEFT:
 	
-
-					if (diferenciaFila > 3) {
-						System.out.println("OJO VA MUY LEJOS DEL CARRO");
-						return;
-					}
 					if (checkWallCollision(bosquecillo, LEFT_COLLISION)) {
 						return;
 					}
@@ -407,10 +447,6 @@ public class Tablero extends JPanel {
 	
 				case KeyEvent.VK_RIGHT:
 	
-					if (diferenciaFila < -3) {
-						System.out.println("OJO VA MUY LEJOS DEL CARRO");
-						return;
-					}
 					if (checkWallCollision(bosquecillo, RIGHT_COLLISION)) {
 						return;
 					}
@@ -437,11 +473,6 @@ public class Tablero extends JPanel {
 				// Arriba
 				case KeyEvent.VK_UP:
 	
-					if (diferenciaColumna > 3) {
-						System.out.println("OJO VA MUY LEJOS DEL CARRO");
-						return;
-					}
-					
 					if (checkWallCollision(bosquecillo, TOP_COLLISION)) {
 						return;
 					}
@@ -467,10 +498,6 @@ public class Tablero extends JPanel {
 	
 				case KeyEvent.VK_DOWN:
 	
-					if (diferenciaColumna < -3) {
-						System.out.println("OJO VA MUY LEJOS DEL CARRO");
-						return;
-					}
 					if (checkWallCollision(bosquecillo, BOTTOM_COLLISION)) {
 						return;
 					}
@@ -569,7 +596,9 @@ public class Tablero extends JPanel {
 
 		}
 	}
-
+	/**
+	 * Este metodo revisa el movimiento del tormentoso con las columnas y las filas para comenzar a seguirlo
+	 */
 	private void movimientoEnemigoMortal() {
 		if (columnaBosquecillo == columnaMortal) {
 			System.out.println("1111ENEMIGOS1111");
@@ -666,6 +695,12 @@ public class Tablero extends JPanel {
 		repaint();
 	}
 
+	/**
+	 * Este metodo permite que que el jugador no se salga de los parametros del juego
+	 * @param actor toma el carrito 
+	 * @param type revisa colisiones 
+	 * @return boolean cuando hay colision o no
+	 */
 	private boolean checkWallCollision(Actor actor, int type) {
 
 		switch (type) {
@@ -731,6 +766,10 @@ public class Tablero extends JPanel {
 
 		return false;
 	}
+/** 
+ * Este metodo es utilizado para verificar el movimiento del carro cuanod bosquecillo lo empuja
+ * @return iscompleted si cumple con la condicion de la posicion de bosquecillo
+ */
 
 	private boolean movimientoCarroIzquierda() {
 		if (filaBosquecillo == filaCarro && columnaBosquecillo == columnaCarro) {
@@ -741,7 +780,10 @@ public class Tablero extends JPanel {
 
 		return isCompleted;
 	}
-
+/**
+ * Este metodo es para verificar el movimiento del carro al lado derecho de bosquecillo
+ * @return iscompleted  si cumple con la condicion de la posicion de bosquecillo
+ */
 	private boolean movimientoCarroDerecha() {
 		if (filaBosquecillo == filaCarro && columnaBosquecillo == columnaCarro) {
 			System.out.println("EL bosquecillo y el carro estan en la misma parte");
@@ -751,6 +793,10 @@ public class Tablero extends JPanel {
 
 		return isCompleted;
 	}
+	/**
+	 * Este metodo es para verificar el movimiento del carro hacia arriba de bosquecillo
+	 * @return iscompleted  si cumple con la condicion de la posicion de bosquecillo
+	 */
 
 	private boolean movimientoCarroArriba() {
 		if (filaBosquecillo == filaCarro && columnaBosquecillo == columnaCarro) {
@@ -762,6 +808,10 @@ public class Tablero extends JPanel {
 		return isCompleted;
 	}
 
+	/**
+	 * Este metodo es para verificar el movimiento del carro hacia abajo de bosquecillo
+	 * @return iscompleted  si cumple con la condicion de la posicion de bosquecillo
+	 */
 	private boolean movimientoCarroAbajo() {
 		System.out.println("Entre a carro abajo");
 		if (filaBosquecillo == filaCarro && columnaBosquecillo == columnaCarro) {
@@ -772,7 +822,11 @@ public class Tablero extends JPanel {
 
 		return true;
 	}
-
+/**
+ * Este metodo es utilizado ï¿½para revisar si existe colision de el carro con los muros
+ * @param type
+ * @return
+ */
 	private boolean checkBagCollision(int type) {
 
 		switch (type) {
@@ -929,7 +983,9 @@ public class Tablero extends JPanel {
 
 		return false;
 	}
-
+/**
+ * Este metodo es utilizado para revisar si el jugador llevo las monedas a las posiciones indicadas
+ */
 	public void isCompleted() {
 
 		int nOfBags = baggs.size();
@@ -956,7 +1012,9 @@ public class Tablero extends JPanel {
 			repaint();
 		}
 	}
-
+/**
+ * Este metodo nos ayuda a reiniciar el nivel y volver a ubicar los elementos del juego en su posiciï¿½n inicial
+ */
 	public void restartLevel() {
 
 		areas.clear();
